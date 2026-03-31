@@ -166,101 +166,11 @@ private extension EditSavingsGoalSheet {
 // MARK: - Customization
 
 private extension EditSavingsGoalSheet {
-    private static let availableIcons: [String] = [
-        "fork.knife", "car.fill", "bag.fill", "heart.fill",
-        "house.fill", "book.fill", "gamecontroller.fill", "gift.fill",
-        "banknote.fill", "doc.text.fill", "cross.fill", "airplane",
-        "tram.fill", "cart.fill", "graduationcap.fill", "paintbrush.fill",
-        "wrench.fill", "music.note", "film.fill", "person.2.fill",
-    ]
-
-    private static let presetColors: [String] = [
-        "#D7A49A", "#A4B1BA", "#B5B89A", "#E4C9B6",
-        "#E1DAD3", "#C4877D", "#8A97A0", "#3D3633",
-    ]
-
     private var customization: some View {
-        VStack(alignment: .leading, spacing: Spacing.lg) {
-            iconPicker
-            Divider()
-            colorPicker
-        }
-        .padding(Spacing.lg)
-        .m3Card()
-    }
-
-    private var iconPicker: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(String(localized: "Biểu tượng"))
-                .font(Typography.labelMedium)
-                .foregroundStyle(Color.onSurfaceVariant)
-            LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: Spacing.sm), count: 5),
-                spacing: Spacing.sm
-            ) {
-                ForEach(Self.availableIcons, id: \.self) { icon in
-                    iconCell(icon)
-                }
-            }
-        }
-    }
-
-    private func iconCell(_ icon: String) -> some View {
-        let isSelected = viewModel.selectedIcon == icon
-        return Button {
-            withAnimation(Motion.spatialFast) {
-                viewModel.selectedIcon = icon
-            }
-        } label: {
-            Image(systemName: icon)
-                .font(.system(size: IconSize.md, weight: .medium))
-                .foregroundStyle(isSelected ? Color.onPrimary : Color.onSurfaceVariant)
-                .frame(width: 44, height: 44)
-                .background(
-                    isSelected ? Color.appPrimary : Color.surfaceContainerHigh,
-                    in: RoundedRectangle(cornerRadius: isSelected ? Spacing.cornerMedium : Spacing.cornerSmall)
-                )
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(icon)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
-    }
-
-    private var colorPicker: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(String(localized: "Màu sắc"))
-                .font(Typography.labelMedium)
-                .foregroundStyle(Color.onSurfaceVariant)
-            HStack(spacing: Spacing.md) {
-                ForEach(Self.presetColors, id: \.self) { hex in
-                    colorCell(hex)
-                }
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-
-    private func colorCell(_ hex: String) -> some View {
-        let isSelected = viewModel.selectedColorHex == hex
-        return Button {
-            withAnimation(Motion.spatialFast) {
-                viewModel.selectedColorHex = hex
-            }
-        } label: {
-            Circle()
-                .fill(Color(hex: hex))
-                .frame(width: 32, height: 32)
-                .scaleEffect(isSelected ? 1.2 : 1.0)
-                .overlay {
-                    if isSelected {
-                        Circle().strokeBorder(Color.onSurface, lineWidth: 2.5)
-                            .frame(width: 32, height: 32)
-                    }
-                }
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(hex)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        IconColorPicker(
+            selectedIcon: $viewModel.selectedIcon,
+            selectedColorHex: $viewModel.selectedColorHex
+        )
     }
 }
 

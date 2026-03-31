@@ -74,14 +74,10 @@ internal final class SavingsGoalListViewModel {
     // MARK: - Helpers
 
     internal func daysRemaining(for goal: SavingsGoal) -> Int? {
-        guard let deadline = goal.deadline else { return nil }
-        return Calendar.current.dateComponents([.day], from: .now, to: deadline).day
+        SavingsGoalHelpers.daysRemaining(for: goal)
     }
 
     internal func progressColor(for goal: SavingsGoal) -> Color {
-        if goal.isCompleted { return .appIncome }
-        if goal.progress >= 0.7 { return .appIncome }
-        if goal.progress >= 0.4 { return .appWarning }
-        return .appError
+        SavingsGoalHelpers.progressColor(for: goal)
     }
 }

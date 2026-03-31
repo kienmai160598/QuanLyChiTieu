@@ -185,83 +185,10 @@ private extension SavingsGoalListView {
     var goalCards: some View {
         ForEach(displayedGoals) { goal in
             NavigationLink(value: SavingsGoalRoute.detail(goal.persistentModelID)) {
-                goalCard(goal)
+                SavingsGoalRow(goal: goal)
             }
             .buttonStyle(.plain)
             .contextMenu { contextMenuItems(for: goal) }
-        }
-    }
-
-    private func goalCard(_ goal: SavingsGoal) -> some View {
-        VStack(alignment: .leading, spacing: Spacing.md) {
-            cardHeader(goal)
-            amountRow(goal)
-            CapsuleProgressBar(progress: goal.progress, tint: viewModel.progressColor(for: goal))
-            cardFooter(goal)
-        }
-        .padding(Spacing.lg)
-        .m3Card()
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("\(goal.name), \(goal.formattedCurrent) / \(goal.formattedTarget)")
-        .accessibilityValue(String(localized: "\(Int(goal.progress * 100)) phần trăm"))
-    }
-
-    private func cardHeader(_ goal: SavingsGoal) -> some View {
-        HStack(spacing: Spacing.md) {
-            M3IconBadge(icon: goal.icon, color: Color(hex: goal.colorHex))
-            Text(goal.name)
-                .font(Typography.titleSmallEmphasized)
-                .foregroundStyle(Color.onSurface)
-                .lineLimit(1)
-            Spacer()
-            if goal.isCompleted {
-                Image(systemName: "checkmark.circle.fill")
-                    .foregroundStyle(Color.appIncome)
-            } else if goal.isArchived {
-                Image(systemName: "archivebox.fill")
-                    .foregroundStyle(Color.onSurfaceVariant)
-            }
-        }
-    }
-
-    private func amountRow(_ goal: SavingsGoal) -> some View {
-        HStack(alignment: .firstTextBaseline) {
-            Text(goal.formattedCurrent)
-                .font(Typography.headlineSmall)
-                .monospacedDigit()
-                .foregroundStyle(Color.onSurface)
-            Text("/ \(goal.formattedTarget)")
-                .font(Typography.bodySmall)
-                .foregroundStyle(Color.onSurfaceVariant)
-            Spacer()
-            Text("\(Int(goal.progress * 100))%")
-                .font(Typography.titleSmallEmphasized)
-                .monospacedDigit()
-                .foregroundStyle(viewModel.progressColor(for: goal))
-                .contentTransition(.numericText())
-        }
-    }
-
-    private func cardFooter(_ goal: SavingsGoal) -> some View {
-        HStack {
-            if goal.isCompleted {
-                Text(String(localized: "Hoàn thành"))
-                    .font(Typography.labelSmall)
-                    .foregroundStyle(Color.appIncome)
-            } else if let days = viewModel.daysRemaining(for: goal) {
-                Text(days > 0
-                    ? String(localized: "Còn \(days) ngày")
-                    : String(localized: "Đã hết hạn"))
-                    .font(Typography.labelSmall)
-                    .foregroundStyle(days <= 7 ? Color.appError : Color.onSurfaceVariant)
-            }
-            Spacer()
-            Text(goal.formattedRemaining)
-                .font(Typography.labelSmall)
-                .foregroundStyle(Color.onSurfaceVariant)
-            + Text(String(localized: " còn thiếu"))
-                .font(Typography.labelSmall)
-                .foregroundStyle(Color.onSurfaceVariant)
         }
     }
 

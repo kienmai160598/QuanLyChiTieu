@@ -10,6 +10,8 @@ internal struct SavingsGoalDetailView: View {
     @State private var viewModel = SavingsGoalDetailViewModel()
     @State private var showDeleteConfirmation = false
     @State private var showEditSheet = false
+    @State private var showRecurringDepositSheet = false
+    @State private var isHistoryExpanded = false
 
     internal var body: some View {
         ScrollView {
@@ -17,6 +19,9 @@ internal struct SavingsGoalDetailView: View {
                 heroSection
                 amountCard
                 statsGrid
+                projectedCompletionSection
+                recurringDepositSection
+                historySection
                 actionButtons
             }
             .padding(.horizontal, Spacing.lg)
@@ -57,6 +62,9 @@ internal struct SavingsGoalDetailView: View {
                 .presentationDragIndicator(.visible)
                 .presentationCornerRadius(Spacing.cornerExtraExtraLarge)
                 .presentationBackground(Color.surfaceContainerLowest)
+        }
+        .sheet(isPresented: $showRecurringDepositSheet) {
+            RecurringDepositSheet(goal: goal, existingDeposit: goal.recurringDeposit)
         }
         .overlay { if viewModel.showCompletionCelebration { celebrationOverlay } }
         .alert(
@@ -241,6 +249,248 @@ private extension SavingsGoalDetailView {
             value: text,
             color: color
         )
+    }
+}
+
+// MARK: - Projected Completion Section
+
+private extension SavingsGoalDetailView {
+    @ViewBuilder
+    private var projectedCompletionSection: some View {
+        let hasHistory = !(goal.history?.isEmpty ?? true)
+        let hasDeadline = goal.deadline != nil
+
+        if hasHistory || hasDeadline {
+            ProjectedCompletionCard(goal: goal)
+        }
+    }
+}
+
+// MARK: - Recurring Deposit Section
+
+private extension SavingsGoalDetailView {
+    private var recurringDepositSection: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            if let deposit = goal.recurringDeposit, deposit.isActive {
+                recurringDepositCard(deposit)
+            } else {
+                setupRecurringDepositCTA
+            }
+        }
+    }
+
+    private func recurringDepositCard(_ deposit: RecurringSavingsDeposit) -> some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            HStack {
+                Label(
+                    String(localized: "Nạp tiền tự động"),
+                    systemImage: "arrow.clockwise.circle.fill"
+                )
+                .font(Typography.titleSmall)
+                .foregroundStyle(Color.onSurface)
+
+                Spacer()
+
+                HStack(spacing: Spacing.sm) {
+                    M3IconButton(icon: "pencil", style: .filled) {
+                        showRecurringDepositSheet = true
+                    }
+                    .accessibilityLabel(String(localized: "Sửa nạp tiền tự động"))
+
+                    M3IconButton(icon: "trash", style: .filled) {
+                        deleteRecurringDeposit(deposit)
+                    }
+                    .accessibilityLabel(String(localized: "Xoá nạp tiền tự động"))
+                }
+            }
+
+            VStack(spacing: Spacing.sm) {
+                depositInfoRow(
+                    icon: "banknote",
+                    label: String(localized: "Số tiền"),
+                    value: deposit.formattedAmount
+                )
+                depositInfoRow(
+                    icon: "repeat",
+                    label: String(localized: "Tần suất"),
+                    value: deposit.frequency.displayName
+                )
+                depositInfoRow(
+                    icon: "calendar",
+                    label: String(localized: "Lần tiếp theo"),
+                    value: nextDepositDateText(for: deposit)
+                )
+            }
+        }
+        .padding(Spacing.lg)
+        .m3Card()
+    }
+
+    private func depositInfoRow(icon: String, label: String, value: String) -> some View {
+        HStack(spacing: Spacing.md) {
+            Image(systemName: icon)
+                .font(Typography.bodyMedium)
+                .foregroundStyle(Color.onSurfaceVariant)
+                .frame(width: 24)
+            Text(label)
+                .font(Typography.bodyMedium)
+                .foregroundStyle(Color.onSurfaceVariant)
+            Spacer()
+            Text(value)
+                .font(Typography.bodyMediumEmphasized)
+                .foregroundStyle(Color.onSurface)
+        }
+    }
+
+    private func nextDepositDateText(for deposit: RecurringSavingsDeposit) -> String {
+        let nextDate = calculateNextDepositDate(for: deposit)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        formatter.locale = Locale(identifier: "vi_VN")
+        return formatter.string(from: nextDate)
+    }
+
+    private func calculateNextDepositDate(for deposit: RecurringSavingsDeposit) -> Date {
+        let calendar = Calendar.current
+        let baseDate = deposit.lastDepositDate ?? deposit.startDate
+
+        switch deposit.frequency {
+        case .daily:
+            return calendar.date(byAdding: .day, value: 1, to: baseDate) ?? baseDate
+        case .weekly:
+            return calendar.date(byAdding: .weekOfYear, value: 1, to: baseDate) ?? baseDate
+        case .monthly:
+            return calendar.date(byAdding: .month, value: 1, to: baseDate) ?? baseDate
+        case .yearly:
+            return calendar.date(byAdding: .year, value: 1, to: baseDate) ?? baseDate
+        }
+    }
+
+    private func deleteRecurringDeposit(_ deposit: RecurringSavingsDeposit) {
+        HapticService.lightImpact()
+        withAnimation(Motion.spatialDefault) {
+            deposit.isActive = false
+            goal.recurringDeposit = nil
+            context.delete(deposit)
+        }
+    }
+
+    private var setupRecurringDepositCTA: some View {
+        Button {
+            HapticService.lightImpact()
+            showRecurringDepositSheet = true
+        } label: {
+            HStack(spacing: Spacing.md) {
+                Image(systemName: "arrow.clockwise.circle")
+                    .font(Typography.titleMedium)
+                    .foregroundStyle(Color.onSurfaceVariant)
+
+                VStack(alignment: .leading, spacing: Spacing.xxs) {
+                    Text(String(localized: "Thiết lập nạp tiền tự động"))
+                        .font(Typography.bodyMediumEmphasized)
+                        .foregroundStyle(Color.onSurface)
+                    Text(String(localized: "Tiết kiệm đều đặn, đạt mục tiêu nhanh hơn"))
+                        .font(Typography.labelSmall)
+                        .foregroundStyle(Color.onSurfaceVariant)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(Typography.bodyMedium)
+                    .foregroundStyle(Color.onSurfaceVariant)
+            }
+            .padding(Spacing.lg)
+            .m3Card()
+        }
+        .buttonStyle(ExpressivePressStyle())
+        .accessibilityHint(String(localized: "Mở thiết lập nạp tiền tự động"))
+    }
+}
+
+// MARK: - History Section
+
+private extension SavingsGoalDetailView {
+    private var historySection: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            historySectionHeader
+            if isHistoryExpanded {
+                historyContent
+            }
+        }
+        .padding(Spacing.lg)
+        .m3Card()
+        .animation(reduceMotion ? .none : Motion.spatialDefault, value: isHistoryExpanded)
+    }
+
+    private var historySectionHeader: some View {
+        Button {
+            HapticService.lightImpact()
+            withAnimation(reduceMotion ? .none : Motion.spatialDefault) {
+                isHistoryExpanded.toggle()
+            }
+        } label: {
+            HStack {
+                Label(
+                    String(localized: "Lịch sử giao dịch"),
+                    systemImage: "clock.arrow.circlepath"
+                )
+                .font(Typography.titleSmall)
+                .foregroundStyle(Color.onSurface)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(Typography.bodyMedium)
+                    .foregroundStyle(Color.onSurfaceVariant)
+                    .rotationEffect(.degrees(isHistoryExpanded ? 90 : 0))
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(String(localized: "Lịch sử giao dịch"))
+        .accessibilityHint(isHistoryExpanded
+            ? String(localized: "Nhấn để thu gọn")
+            : String(localized: "Nhấn để mở rộng"))
+    }
+
+    @ViewBuilder
+    private var historyContent: some View {
+        let transactions = goal.history ?? []
+
+        if transactions.isEmpty {
+            historyEmptyState
+        } else {
+            VStack(spacing: Spacing.lg) {
+                SavingsHistoryChart(
+                    transactions: transactions,
+                    goalColorHex: goal.colorHex,
+                    initialBalance: 0
+                )
+
+                SavingsHistoryList(
+                    transactions: transactions,
+                    limit: 10,
+                    showHeader: false,
+                    onViewAll: {
+                        // TODO: Navigate to full history view
+                    }
+                )
+            }
+        }
+    }
+
+    private var historyEmptyState: some View {
+        VStack(spacing: Spacing.sm) {
+            Image(systemName: "tray")
+                .font(Typography.displaySmall)
+                .foregroundStyle(Color.outlineVariant)
+            Text(String(localized: "Chưa có giao dịch"))
+                .font(Typography.bodyMedium)
+                .foregroundStyle(Color.onSurfaceVariant)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, Spacing.xl)
     }
 }
 

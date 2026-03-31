@@ -15,9 +15,22 @@ internal final class SavingsGoalDetailViewModel {
     internal var showCompletionCelebration: Bool = false
     internal var errorMessage: String?
 
+    // MARK: - History Management
+
+    internal var isHistoryExpanded: Bool = false
+
+    // MARK: - Recurring Deposit Management
+
+    internal var showRecurringDepositSheet: Bool = false
+
+    // MARK: - Milestone Tracking
+
+    internal private(set) var lastTriggeredMilestone: Double?
+
     // MARK: - Private
 
     private var celebrationTask: Task<Void, Never>?
+    private let milestones: [Double] = [0.25, 0.50, 0.75, 1.0]
 
     // MARK: - Computed
 
@@ -47,11 +60,27 @@ internal final class SavingsGoalDetailViewModel {
         isSaving = true
         defer { isSaving = false }
 
+        let oldProgress = goal.progress
         goal.currentAmount += cappedAmount
         addFundsText = ""
 
+        // Create transaction history record
+        let transaction = SavingsTransaction(
+            amount: cappedAmount,
+            date: .now,
+            note: "",
+            isAutomatic: false,
+            goal: goal
+        )
+        context.insert(transaction)
+
         do {
             try context.save()
+
+            // Check for milestone achievements
+            let newProgress = goal.progress
+            checkMilestones(oldProgress: oldProgress, newProgress: newProgress, goal: goal)
+
             if goal.isCompleted && goal.completedAt == nil {
                 goal.completedAt = .now
                 try context.save()
@@ -85,6 +114,16 @@ internal final class SavingsGoalDetailViewModel {
         goal.currentAmount -= cappedAmount
         withdrawFundsText = ""
 
+        // Create transaction history record with negative amount
+        let transaction = SavingsTransaction(
+            amount: -cappedAmount,
+            date: .now,
+            note: "",
+            isAutomatic: false,
+            goal: goal
+        )
+        context.insert(transaction)
+
         if !goal.isCompleted {
             goal.completedAt = nil
         }
@@ -109,6 +148,18 @@ internal final class SavingsGoalDetailViewModel {
         }
     }
 
+    // MARK: - Recurring Deposit Management
+
+    internal func deleteRecurringDeposit(for goal: SavingsGoal, context: ModelContext) {
+        guard let recurringDeposit = goal.recurringDeposit else { return }
+        context.delete(recurringDeposit)
+        do {
+            try context.save()
+        } catch {
+            errorMessage = String(localized: "Không thể xoá tiết kiệm định kỳ")
+        }
+    }
+
     // MARK: - Helpers
 
     internal func clearError() {
@@ -116,15 +167,11 @@ internal final class SavingsGoalDetailViewModel {
     }
 
     internal func daysRemaining(for goal: SavingsGoal) -> Int? {
-        guard let deadline = goal.deadline else { return nil }
-        return Calendar.current.dateComponents([.day], from: .now, to: deadline).day
+        SavingsGoalHelpers.daysRemaining(for: goal)
     }
 
     internal func progressColor(for goal: SavingsGoal) -> Color {
-        if goal.isCompleted { return .appIncome }
-        if goal.progress >= 0.7 { return .appIncome }
-        if goal.progress >= 0.4 { return .appWarning }
-        return .appError
+        SavingsGoalHelpers.progressColor(for: goal)
     }
 
     // MARK: - Private
@@ -141,5 +188,30 @@ internal final class SavingsGoalDetailViewModel {
                 // Task cancelled — no action needed.
             }
         }
+    }
+
+    // MARK: - Milestone Detection
+
+    private func checkMilestones(oldProgress: Double, newProgress: Double, goal: SavingsGoal) {
+        guard goal.milestoneNotificationsEnabled else { return }
+
+        for milestone in milestones {
+            if oldProgress < milestone && newProgress >= milestone {
+                // Avoid triggering duplicate notifications for same milestone
+                if lastTriggeredMilestone != milestone {
+                    lastTriggeredMilestone = milestone
+                    triggerMilestoneReached(milestone: milestone, goal: goal)
+                }
+            }
+        }
+    }
+
+    private func triggerMilestoneReached(milestone: Double, goal: SavingsGoal) {
+        HapticService.success()
+        // TODO: Call NotificationService to send milestone notification
+        // NotificationService.shared.sendMilestoneNotification(
+        //     goalName: goal.name,
+        //     milestone: milestone
+        // )
     }
 }

@@ -10,6 +10,7 @@ internal final class AddSavingsGoalViewModel {
     internal var amountText: String = ""
     internal var selectedIcon: String = "fork.knife"
     internal var selectedColorHex: String = "#D7A49A"
+    internal var selectedCategory: SavingsCategory?
     internal var hasDeadline: Bool = false
     internal var deadline: Date = Calendar.current.date(
         byAdding: .month, value: 3, to: .now
@@ -40,6 +41,23 @@ internal final class AddSavingsGoalViewModel {
         errorMessage = nil
     }
 
+    internal func loadFromTemplate(_ template: SavingsGoalTemplate) {
+        name = template.name
+        amountText = String(Int(truncating: template.suggestedAmount as NSDecimalNumber))
+        selectedIcon = template.icon
+        selectedColorHex = template.colorHex
+        selectedCategory = template.category
+
+        if let months = template.suggestedDeadlineMonths {
+            hasDeadline = true
+            deadline = Calendar.current.date(
+                byAdding: .month, value: months, to: .now
+            ) ?? .now
+        } else {
+            hasDeadline = false
+        }
+    }
+
     internal func save(context: ModelContext) -> Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
         guard !trimmedName.isEmpty else {
@@ -62,7 +80,8 @@ internal final class AddSavingsGoalViewModel {
             targetAmount: amount,
             deadline: hasDeadline ? deadline : nil,
             icon: selectedIcon,
-            colorHex: selectedColorHex
+            colorHex: selectedColorHex,
+            category: selectedCategory
         )
         context.insert(goal)
 

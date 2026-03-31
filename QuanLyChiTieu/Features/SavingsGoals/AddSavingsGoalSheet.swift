@@ -7,6 +7,7 @@ internal struct AddSavingsGoalSheet: View {
 
     @State private var viewModel = AddSavingsGoalViewModel()
     @State private var showDiscardAlert = false
+    @State private var showTemplatesSheet = false
     @FocusState private var isAmountFocused: Bool
     @FocusState private var isNameFocused: Bool
 
@@ -14,8 +15,10 @@ internal struct AddSavingsGoalSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: Spacing.xxl) {
+                    templateButton
                     heroAmount
                     formFields
+                    categoryPicker
                     customization
                     errorBanner
                     saveButton
@@ -30,6 +33,14 @@ internal struct AddSavingsGoalSheet: View {
             .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
             .toolbar { toolbarItems }
             .discardGuard(hasChanges: viewModel.hasChanges, showAlert: $showDiscardAlert)
+            .sheet(isPresented: $showTemplatesSheet) {
+                SavingsGoalTemplatesSheet { template in
+                    HapticService.mediumImpact()
+                    withAnimation(Motion.spatialDefault) {
+                        viewModel.loadFromTemplate(template)
+                    }
+                }
+            }
         }
     }
 
@@ -47,6 +58,29 @@ internal struct AddSavingsGoalSheet: View {
                 isNameFocused = false
             }
         }
+    }
+
+    private var templateButton: some View {
+        Button {
+            HapticService.lightImpact()
+            showTemplatesSheet = true
+        } label: {
+            HStack(spacing: Spacing.sm) {
+                Image(systemName: "square.grid.2x2")
+                    .font(.system(size: IconSize.md, weight: .medium))
+                Text(String(localized: "Chọn từ mẫu"))
+                    .font(Typography.labelLargeEmphasized)
+            }
+            .foregroundStyle(Color.onSurface)
+            .padding(.horizontal, Spacing.lg)
+            .padding(.vertical, Spacing.md)
+            .frame(maxWidth: .infinity)
+            .background(Color.surfaceContainerHigh, in: Capsule())
+            .overlay {
+                Capsule().strokeBorder(Color.outlineVariant, lineWidth: 1)
+            }
+        }
+        .buttonStyle(ExpressivePressStyle())
     }
 }
 
@@ -197,104 +231,77 @@ private extension AddSavingsGoalSheet {
     }
 }
 
+// MARK: - Category Picker
+
+private extension AddSavingsGoalSheet {
+    private var categoryPicker: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            Text(String(localized: "Loại mục tiêu"))
+                .font(Typography.labelMedium)
+                .foregroundStyle(Color.onSurfaceVariant)
+                .padding(.horizontal, Spacing.xs)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: Spacing.sm) {
+                    ForEach(SavingsCategory.allCases, id: \.rawValue) { category in
+                        categoryChip(category)
+                    }
+                }
+            }
+        }
+    }
+
+    private func categoryChip(_ category: SavingsCategory) -> some View {
+        let isSelected = viewModel.selectedCategory == category
+
+        return Button {
+            HapticService.lightImpact()
+            withAnimation(Motion.spatialFast) {
+                if viewModel.selectedCategory == category {
+                    viewModel.selectedCategory = nil
+                } else {
+                    viewModel.selectedCategory = category
+                }
+            }
+        } label: {
+            HStack(spacing: Spacing.xs) {
+                Image(systemName: category.icon)
+                    .font(.system(size: IconSize.sm, weight: .medium))
+                Text(category.displayName)
+                    .font(isSelected ? Typography.labelMediumEmphasized : Typography.labelMedium)
+            }
+            .foregroundStyle(isSelected ? Color.onPrimary : Color.onSurface)
+            .padding(.horizontal, Spacing.md)
+            .padding(.vertical, Spacing.sm)
+            .background(
+                isSelected
+                    ? Color.appPrimary
+                    : Color.surfaceContainerHigh,
+                in: isSelected
+                    ? AnyShape(Capsule())
+                    : AnyShape(RoundedRectangle(cornerRadius: Spacing.cornerMedium))
+            )
+            .overlay {
+                if !isSelected {
+                    RoundedRectangle(cornerRadius: Spacing.cornerMedium)
+                        .strokeBorder(Color.outlineVariant, lineWidth: 1)
+                }
+            }
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(category.displayName)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+    }
+}
+
 // MARK: - Icon & Color Customization
 
 private extension AddSavingsGoalSheet {
-    private static let availableIcons: [String] = [
-        "fork.knife", "car.fill", "bag.fill", "heart.fill",
-        "house.fill", "book.fill", "gamecontroller.fill", "gift.fill",
-        "banknote.fill", "doc.text.fill", "cross.fill", "airplane",
-        "tram.fill", "cart.fill", "graduationcap.fill", "paintbrush.fill",
-        "wrench.fill", "music.note", "film.fill", "person.2.fill",
-    ]
-
-    private static let presetColors: [String] = [
-        "#D7A49A", "#A4B1BA", "#B5B89A", "#E4C9B6",
-        "#E1DAD3", "#C4877D", "#8A97A0", "#3D3633",
-    ]
-
     private var customization: some View {
-        VStack(alignment: .leading, spacing: Spacing.lg) {
-            iconPicker
-            Divider()
-            colorPicker
-        }
-        .padding(Spacing.lg)
-        .m3Card()
-    }
-
-    private var iconPicker: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(String(localized: "Biểu tượng"))
-                .font(Typography.labelMedium)
-                .foregroundStyle(Color.onSurfaceVariant)
-            LazyVGrid(
-                columns: Array(repeating: GridItem(.flexible(), spacing: Spacing.sm), count: 5),
-                spacing: Spacing.sm
-            ) {
-                ForEach(Self.availableIcons, id: \.self) { icon in
-                    iconCell(icon)
-                }
-            }
-        }
-    }
-
-    private func iconCell(_ icon: String) -> some View {
-        let isSelected = viewModel.selectedIcon == icon
-        return Button {
-            withAnimation(Motion.spatialFast) {
-                viewModel.selectedIcon = icon
-            }
-        } label: {
-            Image(systemName: icon)
-                .font(.system(size: IconSize.md, weight: .medium))
-                .foregroundStyle(isSelected ? Color.onPrimary : Color.onSurfaceVariant)
-                .frame(width: 44, height: 44)
-                .background(
-                    isSelected ? Color.appPrimary : Color.surfaceContainerHigh,
-                    in: RoundedRectangle(cornerRadius: isSelected ? Spacing.cornerMedium : Spacing.cornerSmall)
-                )
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(icon)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
-    }
-
-    private var colorPicker: some View {
-        VStack(alignment: .leading, spacing: Spacing.sm) {
-            Text(String(localized: "Màu sắc"))
-                .font(Typography.labelMedium)
-                .foregroundStyle(Color.onSurfaceVariant)
-            HStack(spacing: Spacing.md) {
-                ForEach(Self.presetColors, id: \.self) { hex in
-                    colorCell(hex)
-                }
-            }
-            .frame(maxWidth: .infinity)
-        }
-    }
-
-    private func colorCell(_ hex: String) -> some View {
-        let isSelected = viewModel.selectedColorHex == hex
-        return Button {
-            withAnimation(Motion.spatialFast) {
-                viewModel.selectedColorHex = hex
-            }
-        } label: {
-            Circle()
-                .fill(Color(hex: hex))
-                .frame(width: 32, height: 32)
-                .scaleEffect(isSelected ? 1.2 : 1.0)
-                .overlay {
-                    if isSelected {
-                        Circle().strokeBorder(Color.onSurface, lineWidth: 2.5)
-                            .frame(width: 32, height: 32)
-                    }
-                }
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(hex)
-        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        IconColorPicker(
+            selectedIcon: $viewModel.selectedIcon,
+            selectedColorHex: $viewModel.selectedColorHex
+        )
     }
 }
 
