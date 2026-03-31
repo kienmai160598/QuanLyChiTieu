@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Quản Lý Chi Tiêu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="components.css">
+  <style>
+    body {
+      padding: 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--md-sys-color-surface);
+    }
+
+    .section {
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-family: var(--md-sys-typescale-font-brand);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--md-sys-color-on-surface);
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--md-sys-color-on-surface-variant);
+      margin-bottom: 32px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Color Swatches */
+    .color-group {
+      margin-bottom: 24px;
+    }
+
+    .color-group-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .color-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 120px;
+      height: 80px;
+      border-radius: var(--md-sys-shape-corner-medium);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      font-size: 11px;
+      font-weight: 500;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .swatch .swatch-name {
+      opacity: 0.9;
+    }
+
+    .swatch .swatch-hex {
+      opacity: 0.65;
+      font-size: 10px;
+      margin-top: 2px;
+    }
+
+    /* Type Specimens */
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 24px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .type-label {
+      width: 160px;
+      flex-shrink: 0;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .type-meta {
+      width: 200px;
+      flex-shrink: 0;
+      font-size: 12px;
+      color: var(--md-sys-color-outline);
+    }
+
+    /* Shape */
+    .shape-row {
+      display: flex;
+      gap: 24px;
+      align-items: flex-end;
+    }
+
+    .shape-item {
+      text-align: center;
+    }
+
+    .shape-box {
+      width: 80px;
+      height: 80px;
+      background: var(--md-sys-color-primary-container);
+      border: 2px solid var(--md-sys-color-primary);
+      margin-bottom: 8px;
+    }
+
+    .shape-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    .shape-value {
+      font-size: 10px;
+      color: var(--md-sys-color-outline);
+    }
+
+    /* Elevation */
+    .elevation-row {
+      display: flex;
+      gap: 32px;
+    }
+
+    .elevation-item {
+      width: 100px;
+      height: 100px;
+      border-radius: var(--md-sys-shape-corner-medium);
+      background: var(--md-sys-color-surface-container-lowest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+    }
+
+    /* Buttons grid */
+    .button-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    /* Component cards */
+    .component-card {
+      background: var(--md-sys-color-surface-container-lowest);
+      border-radius: var(--md-sys-shape-corner-large);
+      padding: 24px;
+      border: 1px solid var(--md-sys-color-outline-variant);
+    }
+
+    .component-card-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface-variant);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    /* Category colors */
+    .category-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .category-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--md-sys-shape-corner-full);
+      background: var(--md-sys-color-surface-container-low);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .category-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    /* Spacing */
+    .spacing-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .spacing-item {
+      text-align: center;
+    }
+
+    .spacing-bar {
+      background: var(--md-sys-color-primary-container);
+      border: 1px solid var(--md-sys-color-primary);
+      width: 32px;
+      margin: 0 auto 6px;
+      border-radius: 2px;
+    }
+
+    .spacing-val {
+      font-size: 10px;
+      color: var(--md-sys-color-outline);
+    }
+
+    .material-symbols-rounded {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Icons preview */
+    .icon-grid {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .icon-item {
+      width: 72px;
+      height: 72px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border-radius: var(--md-sys-shape-corner-medium);
+      background: var(--md-sys-color-surface-container-low);
+    }
+
+    .icon-item .material-symbols-rounded {
+      font-size: 28px;
+      color: var(--md-sys-color-on-surface);
+    }
+
+    .icon-item span:last-child {
+      font-size: 9px;
+      color: var(--md-sys-color-outline);
+      text-align: center;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <div style="margin-bottom:48px">
+    <div style="font-size:13px;font-weight:500;color:var(--md-sys-color-primary);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Design System</div>
+    <div style="font-size:40px;font-weight:700;color:var(--md-sys-color-on-surface);line-height:1.1;margin-bottom:8px">Quản Lý Chi Tiêu</div>
+    <div style="font-size:16px;color:var(--md-sys-color-on-surface-variant)">Material Design 3 &middot; Seed: #006D3B &middot; Tonal Spot Variant</div>
+  </div>
+
+  <!-- ========== COLORS ========== -->
+  <div class="section">
+    <div class="section-title">Color Tokens</div>
+    <div class="section-subtitle">Generated from seed color #006D3B — finance green</div>
+
+    <div class="color-group">
+      <div class="color-group-label">Primary</div>
+      <div class="color-row">
+        <div class="swatch" style="background:#006D3B;color:#fff"><span class="swatch-name">Primary</span><span class="swatch-hex">#006D3B</span></div>
+        <div class="swatch" style="background:#FFFFFF;color:#006D3B"><span class="swatch-name">On Primary</span><span class="swatch-hex">#FFFFFF</span></div>
+        <div class="swatch" style="background:#9AF6B2;color:#00210E"><span class="swatch-name">Primary Container</span><span class="swatch-hex">#9AF6B2</span></div>
+        <div class="swatch" style="background:#00210E;color:#9AF6B2"><span class="swatch-name">On Primary Container</span><span class="swatch-hex">#00210E</span></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Secondary</div>
+      <div class="color-row">
+        <div class="swatch" style="background:#4F6354;color:#fff"><span class="swatch-name">Secondary</span><span class="swatch-hex">#4F6354</span></div>
+        <div class="swatch" style="background:#FFFFFF;color:#4F6354"><span class="swatch-name">On Secondary</span><span class="swatch-hex">#FFFFFF</span></div>
+        <div class="swatch" style="background:#D1E8D5;color:#0C1F13"><span class="swatch-name">Secondary Container</span><span class="swatch-hex">#D1E8D5</span></div>
+        <div class="swatch" style="background:#0C1F13;color:#D1E8D5"><span class="swatch-name">On Sec Container</span><span class="swatch-hex">#0C1F13</span></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Tertiary</div>
+      <div class="color-row">
+        <div class="swatch" style="background:#3A6470;color:#fff"><span class="swatch-name">Tertiary</span><span class="swatch-hex">#3A6470</span></div>
+        <div class="swatch" style="background:#FFFFFF;color:#3A6470"><span class="swatch-name">On Tertiary</span><span class="swatch-hex">#FFFFFF</span></div>
+        <div class="swatch" style="background:#BDE9F7;color:#001F27"><span class="swatch-name">Tertiary Container</span><span class="swatch-hex">#BDE9F7</span></div>
+        <div class="swatch" style="background:#001F27;color:#BDE9F7"><span class="swatch-name">On Tert Container</span><span class="swatch-hex">#001F27</span></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Error</div>
+      <div class="color-row">
+        <div class="swatch" style="background:#BA1A1A;color:#fff"><span class="swatch-name">Error</span><span class="swatch-hex">#BA1A1A</span></div>
+        <div class="swatch" style="background:#FFFFFF;color:#BA1A1A"><span class="swatch-name">On Error</span><span class="swatch-hex">#FFFFFF</span></div>
+        <div class="swatch" style="background:#FFDAD6;color:#410002"><span class="swatch-name">Error Container</span><span class="swatch-hex">#FFDAD6</span></div>
+        <div class="swatch" style="background:#410002;color:#FFDAD6"><span class="swatch-name">On Error Container</span><span class="swatch-hex">#410002</span></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Surface</div>
+      <div class="color-row">
+        <div class="swatch" style="background:#FFFFFF;color:#191C19"><span class="swatch-name">Container Lowest</span><span class="swatch-hex">#FFFFFF</span></div>
+        <div class="swatch" style="background:#F5F7F2;color:#191C19"><span class="swatch-name">Container Low</span><span class="swatch-hex">#F5F7F2</span></div>
+        <div class="swatch" style="background:#EFF1EC;color:#191C19"><span class="swatch-name">Container</span><span class="swatch-hex">#EFF1EC</span></div>
+        <div class="swatch" style="background:#E9EBE6;color:#191C19"><span class="swatch-name">Container High</span><span class="swatch-hex">#E9EBE6</span></div>
+        <div class="swatch" style="background:#E3E5E1;color:#191C19"><span class="swatch-name">Container Highest</span><span class="swatch-hex">#E3E5E1</span></div>
+      </div>
+    </div>
+
+    <div class="color-group">
+      <div class="color-group-label">Expense Categories</div>
+      <div class="category-row">
+        <div class="category-chip"><div class="category-dot" style="background:#006D3B"></div>Ăn uống</div>
+        <div class="category-chip"><div class="category-dot" style="background:#3A6470"></div>Di chuyển</div>
+        <div class="category-chip"><div class="category-dot" style="background:#7D5260"></div>Mua sắm</div>
+        <div class="category-chip"><div class="category-dot" style="background:#6750A4"></div>Giải trí</div>
+        <div class="category-chip"><div class="category-dot" style="background:#BF6800"></div>Hóa đơn</div>
+        <div class="category-chip"><div class="category-dot" style="background:#006B5E"></div>Sức khỏe</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TYPOGRAPHY ========== -->
+  <div class="section">
+    <div class="section-title">Typography</div>
+    <div class="section-subtitle">Google Sans (Brand) + Google Sans Text (Plain)</div>
+
+    <div class="type-row">
+      <div class="type-label">Display Large</div>
+      <div class="type-meta">57/64 &middot; Regular &middot; -0.25</div>
+      <div class="display-large" style="font-size:42px">Aa Ăă Đđ</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Headline Large</div>
+      <div class="type-meta">32/40 &middot; Bold &middot; 0</div>
+      <div class="headline-large">Quản lý chi tiêu</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Headline Medium</div>
+      <div class="type-meta">28/36 &middot; Bold &middot; 0</div>
+      <div class="headline-medium">Tổng quan tháng</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Title Large</div>
+      <div class="type-meta">22/28 &middot; Medium &middot; 0</div>
+      <div class="title-large">Thu nhập & Chi tiêu</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Title Medium</div>
+      <div class="type-meta">16/24 &middot; Medium &middot; 0.15</div>
+      <div class="title-medium">Danh mục chi tiêu</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Body Large</div>
+      <div class="type-meta">16/24 &middot; Regular &middot; 0.5</div>
+      <div class="body-large">Theo dõi mọi khoản thu chi dễ dàng, mọi lúc mọi nơi.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Body Medium</div>
+      <div class="type-meta">14/20 &middot; Regular &middot; 0.25</div>
+      <div class="body-medium">Phân bổ chi tiêu hợp lý cho từng hạng mục.</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Label Large</div>
+      <div class="type-meta">14/20 &middot; Medium &middot; 0.1</div>
+      <div class="label-large">Bắt đầu ngay</div>
+    </div>
+    <div class="type-row">
+      <div class="type-label">Label Small</div>
+      <div class="type-meta">11/16 &middot; Medium &middot; 0.5</div>
+      <div class="label-small">Đã sử dụng</div>
+    </div>
+  </div>
+
+  <!-- ========== SHAPE ========== -->
+  <div class="section">
+    <div class="section-title">Shape</div>
+    <div class="section-subtitle">M3 corner radius scale</div>
+    <div class="shape-row">
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:0"></div>
+        <div class="shape-label">None</div>
+        <div class="shape-value">0px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:4px"></div>
+        <div class="shape-label">Extra Small</div>
+        <div class="shape-value">4px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:8px"></div>
+        <div class="shape-label">Small</div>
+        <div class="shape-value">8px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:12px"></div>
+        <div class="shape-label">Medium</div>
+        <div class="shape-value">12px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:16px"></div>
+        <div class="shape-label">Large</div>
+        <div class="shape-value">16px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:28px"></div>
+        <div class="shape-label">Extra Large</div>
+        <div class="shape-value">28px</div>
+      </div>
+      <div class="shape-item">
+        <div class="shape-box" style="border-radius:50%"></div>
+        <div class="shape-label">Full</div>
+        <div class="shape-value">9999px</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ELEVATION ========== -->
+  <div class="section">
+    <div class="section-title">Elevation</div>
+    <div class="section-subtitle">5 levels of box-shadow depth</div>
+    <div class="elevation-row">
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-0)">Level 0</div>
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-1)">Level 1</div>
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-2)">Level 2</div>
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-3)">Level 3</div>
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-4)">Level 4</div>
+      <div class="elevation-item" style="box-shadow:var(--md-sys-elevation-5)">Level 5</div>
+    </div>
+  </div>
+
+  <!-- ========== SPACING ========== -->
+  <div class="section">
+    <div class="section-title">Spacing</div>
+    <div class="section-subtitle">4px base grid system</div>
+    <div class="spacing-row">
+      <div class="spacing-item"><div class="spacing-bar" style="height:4px"></div><div class="spacing-val">4</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:8px"></div><div class="spacing-val">8</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:12px"></div><div class="spacing-val">12</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:16px"></div><div class="spacing-val">16</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:20px"></div><div class="spacing-val">20</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:24px"></div><div class="spacing-val">24</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:32px"></div><div class="spacing-val">32</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:40px"></div><div class="spacing-val">40</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:48px"></div><div class="spacing-val">48</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:56px"></div><div class="spacing-val">56</div></div>
+      <div class="spacing-item"><div class="spacing-bar" style="height:64px"></div><div class="spacing-val">64</div></div>
+    </div>
+  </div>
+
+  <!-- ========== BUTTONS ========== -->
+  <div class="section">
+    <div class="section-title">Buttons</div>
+    <div class="section-subtitle">M3 button variants</div>
+    <div class="button-grid">
+      <button class="btn btn-filled">Filled Button</button>
+      <button class="btn btn-tonal">Tonal Button</button>
+      <button class="btn btn-outlined">Outlined Button</button>
+      <button class="btn btn-text">Text Button</button>
+      <button class="btn btn-elevated">Elevated Button</button>
+      <button class="btn btn-filled" disabled>Disabled</button>
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="component-card-title">Large Buttons (Onboarding CTA)</div>
+      <div class="button-grid">
+        <button class="btn btn-filled btn-large">Bắt đầu ngay <span class="material-symbols-rounded" style="font-size:20px">arrow_forward</span></button>
+        <button class="btn btn-outlined btn-large" style="height:56px;padding:0 32px;font-size:16px">Đăng nhập</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FABs ========== -->
+  <div class="section">
+    <div class="section-title">FAB</div>
+    <div class="section-subtitle">Floating Action Buttons</div>
+    <div class="button-grid">
+      <button class="fab fab-small"><span class="material-symbols-rounded" style="font-size:20px">add</span></button>
+      <button class="fab fab-primary"><span class="material-symbols-rounded">add</span></button>
+      <button class="fab fab-primary fab-surface"><span class="material-symbols-rounded">edit</span></button>
+      <button class="fab fab-primary fab-secondary"><span class="material-symbols-rounded">receipt_long</span></button>
+      <button class="fab fab-primary fab-tertiary"><span class="material-symbols-rounded">bar_chart</span></button>
+      <button class="fab fab-large"><span class="material-symbols-rounded" style="font-size:36px">add</span></button>
+    </div>
+  </div>
+
+  <!-- ========== CHIPS ========== -->
+  <div class="section">
+    <div class="section-title">Chips</div>
+    <div class="section-subtitle">Filter, Assist, Suggestion, and Category chips</div>
+    <div class="button-grid">
+      <div class="chip chip-filter selected"><span class="material-symbols-rounded" style="font-size:18px">check</span> Tất cả</div>
+      <div class="chip chip-filter">Thu nhập</div>
+      <div class="chip chip-filter">Chi tiêu</div>
+      <div class="chip chip-assist"><span class="material-symbols-rounded" style="font-size:18px">restaurant</span> Ăn uống</div>
+      <div class="chip chip-suggestion">Tuần này</div>
+      <div class="chip chip-suggestion">Tháng này</div>
+    </div>
+    <div style="margin-top:16px" class="button-grid">
+      <div class="chip-category"><span class="material-symbols-rounded" style="font-size:18px;color:#006D3B">restaurant</span> Ăn uống: 2.5M</div>
+      <div class="chip-category"><span class="material-symbols-rounded" style="font-size:18px;color:#3A6470">directions_bus</span> Di chuyển: 800K</div>
+      <div class="chip-category"><span class="material-symbols-rounded" style="font-size:18px;color:#7D5260">shopping_bag</span> Mua sắm: 1.2M</div>
+    </div>
+  </div>
+
+  <!-- ========== CARDS ========== -->
+  <div class="section">
+    <div class="section-title">Cards</div>
+    <div class="section-subtitle">Elevated, Filled, Outlined, and Stat cards</div>
+    <div class="grid">
+      <div class="component-card" style="width:220px">
+        <div class="component-card-title">Elevated Card</div>
+        <div class="card card-elevated" style="padding:16px;height:100px;display:flex;align-items:center;gap:12px">
+          <div class="icon-container icon-container-md icon-container-primary"><span class="material-symbols-rounded">trending_down</span></div>
+          <div>
+            <div class="title-small" style="color:var(--md-sys-color-on-surface)">Chi tiêu hôm nay</div>
+            <div class="headline-small" style="color:var(--md-sys-color-primary)">-350K</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-card" style="width:220px">
+        <div class="component-card-title">Filled Card</div>
+        <div class="card card-filled" style="padding:16px;height:100px;display:flex;align-items:center;gap:12px">
+          <div class="icon-container icon-container-md icon-container-tertiary"><span class="material-symbols-rounded">account_balance_wallet</span></div>
+          <div>
+            <div class="title-small" style="color:var(--md-sys-color-on-surface)">Số dư</div>
+            <div class="headline-small" style="color:var(--md-sys-color-tertiary)">12.5M</div>
+          </div>
+        </div>
+      </div>
+      <div class="component-card" style="width:220px">
+        <div class="component-card-title">Outlined Card</div>
+        <div class="card card-outlined" style="padding:16px;height:100px;display:flex;align-items:center;gap:12px">
+          <div class="icon-container icon-container-md icon-container-secondary"><span class="material-symbols-rounded" style="font-size:28px">savings</span></div>
+          <div>
+            <div class="title-small" style="color:var(--md-sys-color-on-surface)">Tiết kiệm</div>
+            <div class="headline-small" style="color:var(--md-sys-color-secondary)">6.5M</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px">
+      <div class="component-card-title">Stat Cards (Finance)</div>
+      <div class="grid">
+        <div class="card-stat" style="width:160px">
+          <div class="card-stat-label">Thu nhập</div>
+          <div class="card-stat-value">15.2M</div>
+          <div class="card-stat-change positive">↑ 12.5%</div>
+        </div>
+        <div class="card-stat" style="width:160px">
+          <div class="card-stat-label">Chi tiêu</div>
+          <div class="card-stat-value">8.7M</div>
+          <div class="card-stat-change negative">↑ 3.2%</div>
+        </div>
+        <div class="card-stat" style="width:160px">
+          <div class="card-stat-label">Tiết kiệm</div>
+          <div class="card-stat-value">6.5M</div>
+          <div class="card-stat-change positive">↑ 28%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE INDICATORS ========== -->
+  <div class="section">
+    <div class="section-title">Page Indicator</div>
+    <div class="section-subtitle">Onboarding dot navigation</div>
+    <div style="display:flex;gap:32px;align-items:center">
+      <div>
+        <div class="label-small" style="color:var(--md-sys-color-on-surface-variant);margin-bottom:8px">Page 1 of 4</div>
+        <div class="page-indicator">
+          <div class="dot active"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div>
+        <div class="label-small" style="color:var(--md-sys-color-on-surface-variant);margin-bottom:8px">Page 2 of 4</div>
+        <div class="page-indicator">
+          <div class="dot"></div><div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div>
+        <div class="label-small" style="color:var(--md-sys-color-on-surface-variant);margin-bottom:8px">Page 3 of 4</div>
+        <div class="page-indicator">
+          <div class="dot"></div><div class="dot"></div><div class="dot active"></div><div class="dot"></div>
+        </div>
+      </div>
+      <div>
+        <div class="label-small" style="color:var(--md-sys-color-on-surface-variant);margin-bottom:8px">Page 4 of 4</div>
+        <div class="page-indicator">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot active"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== ICONS ========== -->
+  <div class="section">
+    <div class="section-title">Iconography</div>
+    <div class="section-subtitle">Material Symbols Rounded — Filled variant, 400 weight</div>
+    <div class="icon-grid">
+      <div class="icon-item"><span class="material-symbols-rounded">savings</span><span>savings</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">account_balance_wallet</span><span>wallet</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">trending_down</span><span>expense</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">trending_up</span><span>income</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">bar_chart</span><span>chart</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">receipt_long</span><span>receipt</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">restaurant</span><span>food</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">directions_bus</span><span>transport</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">shopping_bag</span><span>shopping</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">rocket_launch</span><span>launch</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">add</span><span>add</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">arrow_forward</span><span>forward</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">check_circle</span><span>check</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">notifications</span><span>notify</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">settings</span><span>settings</span></div>
+      <div class="icon-item"><span class="material-symbols-rounded">person</span><span>profile</span></div>
+    </div>
+  </div>
+
+  <!-- ========== TRANSACTION LIST ========== -->
+  <div class="section">
+    <div class="section-title">Transaction List Item</div>
+    <div class="section-subtitle">Finance-specific list component</div>
+    <div class="component-card" style="max-width:400px">
+      <div class="list-item">
+        <div class="icon-container icon-container-md" style="background:var(--md-sys-color-primary-container);color:var(--md-sys-color-on-primary-container)"><span class="material-symbols-rounded">restaurant</span></div>
+        <div class="list-item-content">
+          <div class="list-item-headline">Ăn trưa</div>
+          <div class="list-item-supporting">Hôm nay, 12:30</div>
+        </div>
+        <div class="list-item-trailing">
+          <div class="list-item-amount expense">-85,000đ</div>
+        </div>
+      </div>
+      <div class="divider divider-inset"></div>
+      <div class="list-item">
+        <div class="icon-container icon-container-md" style="background:var(--md-sys-color-tertiary-container);color:var(--md-sys-color-on-tertiary-container)"><span class="material-symbols-rounded">directions_bus</span></div>
+        <div class="list-item-content">
+          <div class="list-item-headline">Grab đi làm</div>
+          <div class="list-item-supporting">Hôm nay, 08:15</div>
+        </div>
+        <div class="list-item-trailing">
+          <div class="list-item-amount expense">-45,000đ</div>
+        </div>
+      </div>
+      <div class="divider divider-inset"></div>
+      <div class="list-item">
+        <div class="icon-container icon-container-md" style="background:#E8DEF8;color:#1D192B"><span class="material-symbols-rounded">work</span></div>
+        <div class="list-item-content">
+          <div class="list-item-headline">Lương tháng 3</div>
+          <div class="list-item-supporting">Hôm qua, 09:00</div>
+        </div>
+        <div class="list-item-trailing">
+          <div class="list-item-amount income">+15,200,000đ</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

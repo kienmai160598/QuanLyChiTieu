@@ -1,0 +1,21 @@
+# Xcode
+.build/
+DerivedData/
+*.xcuserdata/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+
+# Sensitive
+GoogleService-Info.plist
+*.pem
+*.p12
+.env
+.env.*
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Build
+build/

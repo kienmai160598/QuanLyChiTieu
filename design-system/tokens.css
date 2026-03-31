@@ -1,0 +1,345 @@
+/* ============================================================
+   QUẢN LÝ CHI TIÊU — Design System Tokens
+   Based on Material Design 3 (Material You)
+   Generated from Onboarding Frames
+   ============================================================ */
+
+:root {
+  /* ──────────────────────────────────────────────────────────
+     COLOR TOKENS — Light Theme
+     Seed color: #006D3B (Green — Finance / Money)
+     ────────────────────────────────────────────────────────── */
+
+  /* Primary */
+  --md-sys-color-primary: #006D3B;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #9AF6B2;
+  --md-sys-color-on-primary-container: #00210E;
+  --md-sys-color-primary-fixed: #9AF6B2;
+  --md-sys-color-primary-fixed-dim: #7ED998;
+  --md-sys-color-on-primary-fixed: #00210E;
+  --md-sys-color-on-primary-fixed-variant: #00522B;
+
+  /* Secondary */
+  --md-sys-color-secondary: #4F6354;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #D1E8D5;
+  --md-sys-color-on-secondary-container: #0C1F13;
+  --md-sys-color-secondary-fixed: #D1E8D5;
+  --md-sys-color-secondary-fixed-dim: #B5CCBA;
+  --md-sys-color-on-secondary-fixed: #0C1F13;
+  --md-sys-color-on-secondary-fixed-variant: #374B3D;
+
+  /* Tertiary */
+  --md-sys-color-tertiary: #3A6470;
+  --md-sys-color-on-tertiary: #FFFFFF;
+  --md-sys-color-tertiary-container: #BDE9F7;
+  --md-sys-color-on-tertiary-container: #001F27;
+  --md-sys-color-tertiary-fixed: #BDE9F7;
+  --md-sys-color-tertiary-fixed-dim: #A1CDDB;
+  --md-sys-color-on-tertiary-fixed: #001F27;
+  --md-sys-color-on-tertiary-fixed-variant: #214C57;
+
+  /* Error */
+  --md-sys-color-error: #BA1A1A;
+  --md-sys-color-on-error: #FFFFFF;
+  --md-sys-color-error-container: #FFDAD6;
+  --md-sys-color-on-error-container: #410002;
+
+  /* Surface */
+  --md-sys-color-surface: #FBFDF8;
+  --md-sys-color-on-surface: #191C19;
+  --md-sys-color-surface-variant: #DDE5DA;
+  --md-sys-color-on-surface-variant: #414941;
+  --md-sys-color-surface-dim: #DBDDD8;
+  --md-sys-color-surface-bright: #FBFDF8;
+  --md-sys-color-surface-tint: #006D3B;
+
+  /* Surface Container */
+  --md-sys-color-surface-container-lowest: #FFFFFF;
+  --md-sys-color-surface-container-low: #F5F7F2;
+  --md-sys-color-surface-container: #EFF1EC;
+  --md-sys-color-surface-container-high: #E9EBE6;
+  --md-sys-color-surface-container-highest: #E3E5E1;
+
+  /* Outline */
+  --md-sys-color-outline: #717971;
+  --md-sys-color-outline-variant: #C1C9BE;
+
+  /* Inverse */
+  --md-sys-color-inverse-surface: #2E312E;
+  --md-sys-color-inverse-on-surface: #F0F1EC;
+  --md-sys-color-inverse-primary: #7ED998;
+
+  /* Misc */
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+  --md-sys-color-background: #FBFDF8;
+  --md-sys-color-on-background: #191C19;
+
+
+  /* ──────────────────────────────────────────────────────────
+     COLOR TOKENS — Dark Theme
+     ────────────────────────────────────────────────────────── */
+  /* Applied via [data-theme="dark"] or @media (prefers-color-scheme: dark) */
+
+
+  /* ──────────────────────────────────────────────────────────
+     TYPOGRAPHY — Google Sans / M3 Type Scale
+     ────────────────────────────────────────────────────────── */
+
+  /* Font Families */
+  --md-sys-typescale-font-brand: 'Google Sans', system-ui, -apple-system, sans-serif;
+  --md-sys-typescale-font-plain: 'Google Sans Text', system-ui, -apple-system, sans-serif;
+
+  /* Display */
+  --md-sys-typescale-display-large-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-weight: 400;
+  --md-sys-typescale-display-large-tracking: -0.25px;
+
+  --md-sys-typescale-display-medium-size: 45px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-weight: 400;
+  --md-sys-typescale-display-medium-tracking: 0px;
+
+  --md-sys-typescale-display-small-size: 36px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-weight: 400;
+  --md-sys-typescale-display-small-tracking: 0px;
+
+  /* Headline */
+  --md-sys-typescale-headline-large-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-weight: 700;
+  --md-sys-typescale-headline-large-tracking: 0px;
+
+  --md-sys-typescale-headline-medium-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-weight: 700;
+  --md-sys-typescale-headline-medium-tracking: 0px;
+
+  --md-sys-typescale-headline-small-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-weight: 700;
+  --md-sys-typescale-headline-small-tracking: 0px;
+
+  /* Title */
+  --md-sys-typescale-title-large-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-weight: 500;
+  --md-sys-typescale-title-large-tracking: 0px;
+
+  --md-sys-typescale-title-medium-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-weight: 500;
+  --md-sys-typescale-title-medium-tracking: 0.15px;
+
+  --md-sys-typescale-title-small-size: 14px;
+  --md-sys-typescale-title-small-line-height: 20px;
+  --md-sys-typescale-title-small-weight: 500;
+  --md-sys-typescale-title-small-tracking: 0.1px;
+
+  /* Body */
+  --md-sys-typescale-body-large-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-weight: 400;
+  --md-sys-typescale-body-large-tracking: 0.5px;
+
+  --md-sys-typescale-body-medium-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-weight: 400;
+  --md-sys-typescale-body-medium-tracking: 0.25px;
+
+  --md-sys-typescale-body-small-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-weight: 400;
+  --md-sys-typescale-body-small-tracking: 0.4px;
+
+  /* Label */
+  --md-sys-typescale-label-large-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-weight: 500;
+  --md-sys-typescale-label-large-tracking: 0.1px;
+
+  --md-sys-typescale-label-medium-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-weight: 500;
+  --md-sys-typescale-label-medium-tracking: 0.5px;
+
+  --md-sys-typescale-label-small-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-weight: 500;
+  --md-sys-typescale-label-small-tracking: 0.5px;
+
+
+  /* ──────────────────────────────────────────────────────────
+     SHAPE — Corner Radius
+     ────────────────────────────────────────────────────────── */
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+
+
+  /* ──────────────────────────────────────────────────────────
+     ELEVATION — Box Shadows (M3 Levels 0–5)
+     ────────────────────────────────────────────────────────── */
+
+  --md-sys-elevation-0: none;
+  --md-sys-elevation-1: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-2: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+  --md-sys-elevation-3: 0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-4: 0px 6px 10px 4px rgba(0, 0, 0, 0.15), 0px 2px 3px rgba(0, 0, 0, 0.3);
+  --md-sys-elevation-5: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px rgba(0, 0, 0, 0.3);
+
+
+  /* ──────────────────────────────────────────────────────────
+     SPACING — 4px Base Grid
+     ────────────────────────────────────────────────────────── */
+
+  --spacing-0: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 28px;
+  --spacing-8: 32px;
+  --spacing-9: 36px;
+  --spacing-10: 40px;
+  --spacing-12: 48px;
+  --spacing-14: 56px;
+  --spacing-16: 64px;
+
+
+  /* ──────────────────────────────────────────────────────────
+     MOTION — M3 Easing & Duration
+     ────────────────────────────────────────────────────────── */
+
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+  --md-sys-motion-duration-extra-long1: 700ms;
+  --md-sys-motion-duration-extra-long2: 800ms;
+  --md-sys-motion-duration-extra-long3: 900ms;
+  --md-sys-motion-duration-extra-long4: 1000ms;
+
+
+  /* ──────────────────────────────────────────────────────────
+     STATE LAYERS — Opacity for interaction states
+     ────────────────────────────────────────────────────────── */
+
+  --md-sys-state-hover-opacity: 0.08;
+  --md-sys-state-focus-opacity: 0.12;
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+}
+
+
+/* ============================================================
+   DARK THEME OVERRIDES
+   ============================================================ */
+
+[data-theme="dark"],
+.dark {
+  --md-sys-color-primary: #7ED998;
+  --md-sys-color-on-primary: #00391C;
+  --md-sys-color-primary-container: #00522B;
+  --md-sys-color-on-primary-container: #9AF6B2;
+
+  --md-sys-color-secondary: #B5CCBA;
+  --md-sys-color-on-secondary: #213528;
+  --md-sys-color-secondary-container: #374B3D;
+  --md-sys-color-on-secondary-container: #D1E8D5;
+
+  --md-sys-color-tertiary: #A1CDDB;
+  --md-sys-color-on-tertiary: #003640;
+  --md-sys-color-tertiary-container: #214C57;
+  --md-sys-color-on-tertiary-container: #BDE9F7;
+
+  --md-sys-color-error: #FFB4AB;
+  --md-sys-color-on-error: #690005;
+  --md-sys-color-error-container: #93000A;
+  --md-sys-color-on-error-container: #FFDAD6;
+
+  --md-sys-color-surface: #111411;
+  --md-sys-color-on-surface: #E1E3DE;
+  --md-sys-color-surface-variant: #414941;
+  --md-sys-color-on-surface-variant: #C1C9BE;
+  --md-sys-color-surface-dim: #111411;
+  --md-sys-color-surface-bright: #373A36;
+  --md-sys-color-surface-tint: #7ED998;
+
+  --md-sys-color-surface-container-lowest: #0C0F0C;
+  --md-sys-color-surface-container-low: #191C19;
+  --md-sys-color-surface-container: #1D201D;
+  --md-sys-color-surface-container-high: #282B27;
+  --md-sys-color-surface-container-highest: #333632;
+
+  --md-sys-color-outline: #8B9389;
+  --md-sys-color-outline-variant: #414941;
+
+  --md-sys-color-inverse-surface: #E1E3DE;
+  --md-sys-color-inverse-on-surface: #2E312E;
+  --md-sys-color-inverse-primary: #006D3B;
+
+  --md-sys-color-background: #111411;
+  --md-sys-color-on-background: #E1E3DE;
+}
+
+
+/* ============================================================
+   SEMANTIC / ALIAS TOKENS — App-Specific
+   ============================================================ */
+
+:root {
+  /* Income / Positive */
+  --color-income: var(--md-sys-color-primary);
+  --color-income-bg: var(--md-sys-color-primary-container);
+  --color-income-text: var(--md-sys-color-on-primary-container);
+
+  /* Expense / Negative */
+  --color-expense: var(--md-sys-color-error);
+  --color-expense-bg: var(--md-sys-color-error-container);
+  --color-expense-text: var(--md-sys-color-on-error-container);
+
+  /* Budget categories */
+  --color-category-food: var(--md-sys-color-primary);
+  --color-category-transport: var(--md-sys-color-tertiary);
+  --color-category-shopping: #7D5260;
+  --color-category-entertainment: #6750A4;
+  --color-category-bills: #BF6800;
+  --color-category-health: #006B5E;
+
+  /* Savings / Goal */
+  --color-savings: var(--md-sys-color-tertiary);
+  --color-savings-bg: var(--md-sys-color-tertiary-container);
+
+  /* Charts */
+  --color-chart-primary: var(--md-sys-color-primary);
+  --color-chart-secondary: var(--md-sys-color-primary-container);
+  --color-chart-tertiary: var(--md-sys-color-tertiary);
+  --color-chart-grid: var(--md-sys-color-outline-variant);
+}

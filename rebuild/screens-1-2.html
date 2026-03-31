@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản Lý Chi Tiêu — Onboarding Screens 1 & 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="ico-signal" viewBox="0 0 17 11">
+    <rect x="0" y="8" width="3" height="3" rx="0.75" fill="currentColor"/>
+    <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.75" fill="currentColor"/>
+    <rect x="9" y="2.75" width="3" height="8.25" rx="0.75" fill="currentColor"/>
+    <rect x="13.5" y="0" width="3" height="11" rx="0.75" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-wifi" viewBox="0 0 16 12">
+    <path d="M8 10a1.25 1.25 0 110 2.5A1.25 1.25 0 018 10z" fill="currentColor"/>
+    <path d="M4.93 7.93a4.36 4.36 0 016.14 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M2.1 5.1a8 8 0 0111.8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-battery" viewBox="0 0 27 12">
+    <rect x="0.5" y="0.5" width="22" height="11" rx="2.5" stroke="currentColor" stroke-opacity="0.35" fill="none" stroke-width="1"/>
+    <rect x="23.5" y="3.5" width="2" height="4.5" rx="0.8" fill="currentColor" opacity="0.35"/>
+    <rect x="2" y="2" width="18.5" height="8" rx="1.5" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-arrow-right" viewBox="0 0 24 24">
+    <path d="M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-food" viewBox="0 0 24 24">
+    <path d="M3 13h18c0 4.42-4.03 8-9 8s-9-3.58-9-8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M5 13c0-3.31 3.13-6 7-6s7 2.69 7 6" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M9 7V5.5M12 6V3M15 7V5.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-transport" viewBox="0 0 24 24">
+    <rect x="4" y="4" width="16" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M4 11h16" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="8" cy="15" r="1.25" fill="currentColor"/>
+    <circle cx="16" cy="15" r="1.25" fill="currentColor"/>
+    <path d="M7 4V2.5M17 4V2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    <path d="M6 18v2M18 18v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-shopping" viewBox="0 0 24 24">
+    <path d="M5 8h14l-1.2 10.4a2 2 0 01-2 1.6H8.2a2 2 0 01-2-1.6L5 8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M8 8V6a4 4 0 018 0v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-wallet" viewBox="0 0 24 24">
+    <rect x="2" y="6" width="20" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M2 10h20" stroke="currentColor" stroke-width="1.4"/>
+    <circle cx="17" cy="14.5" r="1.5" fill="currentColor"/>
+    <path d="M6 6V5a2 2 0 012-2h8a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  </symbol>
+  <symbol id="ico-target" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+    <circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2"/>
+    <circle cx="12" cy="12" r="2.5" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-bell" viewBox="0 0 20 20">
+    <path d="M10 2.5a4.5 4.5 0 00-4.5 4.5v3L4 12.5h12L14.5 10V7A4.5 4.5 0 0010 2.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    <path d="M8 13.5a2 2 0 004 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <circle cx="14" cy="4" r="2.5" fill="#BA1A1A" stroke="white" stroke-width="1"/>
+  </symbol>
+  <symbol id="ico-trend-up" viewBox="0 0 24 24">
+    <polyline points="4,17 9,11 13,14 20,6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="15,6 20,6 20,11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #E8ECE4 0%, #D8DDD4 50%, #E0E4DB 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 56px;
+  padding: 48px;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --md-primary: #006D3B;
+  --md-on-primary: #FFFFFF;
+  --md-primary-container: #9AF6B2;
+  --md-on-primary-container: #00210E;
+  --md-secondary: #4F6354;
+  --md-secondary-container: #D1E8D5;
+  --md-tertiary: #3A6470;
+  --md-tertiary-container: #BDE9F7;
+  --md-surface: #FBFDF8;
+  --md-on-surface: #191C19;
+  --md-on-surface-variant: #414941;
+  --md-outline: #717971;
+  --md-outline-variant: #C1C9BF;
+  --md-surface-container-highest: #E4E9E0;
+  --md-error: #BA1A1A;
+}
+
+/* ===== PHONE FRAME ===== */
+.phone-frame {
+  width: 393px;
+  height: 852px;
+  border-radius: 40px;
+  background: var(--md-surface);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.05),
+    0 8px 20px rgba(0,0,0,0.08),
+    0 24px 48px rgba(0,0,0,0.1);
+}
+
+/* ===== DYNAMIC ISLAND ===== */
+.dynamic-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 200;
+}
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 54px;
+  padding: 14px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+.status-bar__time {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.status-bar__icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-bar__icons svg { width: 16px; height: 11px; }
+.status-bar__icons .battery { width: 25px; height: 11px; }
+
+/* ===== HOME INDICATOR ===== */
+.home-indicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 134px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--md-on-surface);
+  opacity: 0.18;
+  z-index: 100;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 24px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+.dot-indicator { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 8px; height: 8px; border-radius: 4px;
+  background: var(--md-outline-variant);
+}
+.dot--active { width: 24px; background: var(--md-primary); }
+.skip-text {
+  font-size: 14px; font-weight: 500;
+  color: var(--md-on-surface-variant);
+}
+.fab {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: var(--md-primary); color: var(--md-on-primary);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,109,59,0.18), 0 8px 20px rgba(0,109,59,0.22);
+}
+.fab svg { width: 24px; height: 24px; }
+
+/* ===================================================================
+   SCREEN 1 — WELCOME
+   =================================================================== */
+
+/* Top gradient background shape */
+.s1-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 380px;
+  background: linear-gradient(160deg, var(--md-primary) 0%, #00894A 40%, #4CBB7D 80%, var(--md-primary-container) 100%);
+  z-index: 1;
+}
+.s1-bg-wave {
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+}
+
+/* Illustration area — sits inside the green header */
+.s1-illustration {
+  position: absolute;
+  top: 60px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+/* Preview cards — stacked vertically with clear spacing, no rotation */
+.s1-cards {
+  position: absolute;
+  top: 400px;
+  left: 24px; right: 24px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.preview-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.preview-card__icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.preview-card__icon svg { width: 20px; height: 20px; }
+.preview-card__icon--expense { background: #FFDAD6; color: #BA1A1A; }
+.preview-card__icon--wallet { background: #D1E8D5; color: #006D3B; }
+.preview-card__icon--savings { background: #BDE9F7; color: #3A6470; }
+
+.preview-card__info { flex: 1; min-width: 0; }
+.preview-card__label {
+  font-size: 11px; font-weight: 600; color: var(--md-on-surface-variant);
+  text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;
+}
+.preview-card__value {
+  font-size: 17px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--md-on-surface);
+}
+.preview-card__value--expense { color: var(--md-error); }
+.preview-card__value--primary { color: var(--md-primary); }
+.preview-card__right {
+  font-size: 11px; font-weight: 500; color: var(--md-on-surface-variant);
+  text-align: right;
+}
+/* Progress mini bar */
+.mini-progress {
+  width: 60px; height: 4px; border-radius: 2px;
+  background: var(--md-surface-container-highest);
+  margin-top: 4px;
+}
+.mini-progress__fill {
+  height: 100%; border-radius: 2px; width: 72%;
+  background: linear-gradient(90deg, var(--md-primary), var(--md-primary-container));
+}
+.mini-progress__pct {
+  font-size: 11px; font-weight: 700; color: var(--md-primary);
+}
+
+/* Screen 1 Text Block */
+.s1-text {
+  position: absolute;
+  bottom: 120px;
+  left: 28px; right: 28px;
+  z-index: 20;
+}
+.s1-headline { line-height: 1.12; margin-bottom: 12px; }
+.s1-headline__sm {
+  display: block; font-size: 26px; font-weight: 500;
+  color: var(--md-on-surface); letter-spacing: -0.01em;
+}
+.s1-headline__lg {
+  display: block; font-size: 36px; font-weight: 800;
+  color: var(--md-primary); letter-spacing: -0.03em;
+}
+.s1-sub {
+  font-size: 15px; font-weight: 400; line-height: 1.55;
+  color: var(--md-on-surface-variant); max-width: 285px;
+}
+
+/* ===================================================================
+   SCREEN 2 — SMART BUDGETING
+   =================================================================== */
+
+/* Wave header */
+.s2-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 1;
+}
+.s2-header-fill {
+  width: 100%; height: 200px;
+  background: linear-gradient(180deg, var(--md-tertiary-container) 0%, #CDEEF9 100%);
+}
+.s2-header-wave { display: block; width: 100%; margin-top: -1px; }
+
+/* Gauge — centered in header area */
+.s2-gauge-wrap {
+  position: absolute;
+  top: 62px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  text-align: center;
+  z-index: 10;
+}
+.s2-gauge-wrap svg { width: 200px; height: 115px; }
+.s2-gauge__label {
+  display: block; font-size: 10.5px; font-weight: 600;
+  color: var(--md-on-surface-variant);
+  text-transform: uppercase; letter-spacing: 0.07em;
+  margin-top: -8px;
+}
+.s2-gauge__value {
+  display: block; font-size: 24px; font-weight: 800;
+  color: var(--md-on-surface); letter-spacing: -0.03em;
+}
+
+/* Notification card — below the gauge, no overlap */
+.s2-notif {
+  position: absolute;
+  top: 215px;
+  left: 24px; right: 24px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.05);
+  z-index: 10;
+}
+.s2-notif__head {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.s2-notif__icon {
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--md-primary-container); color: var(--md-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.s2-notif__icon svg { width: 15px; height: 15px; }
+.s2-notif__badge {
+  font-size: 10px; font-weight: 700; color: var(--md-primary);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.s2-notif__body {
+  font-size: 13.5px; font-weight: 600; color: var(--md-on-surface);
+  line-height: 1.35; margin-bottom: 5px;
+}
+.s2-notif__trend {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 700; color: var(--md-primary);
+}
+.s2-notif__trend svg { width: 16px; height: 16px; }
+
+/* Budget rows — stacked clearly below notification */
+.s2-budgets {
+  position: absolute;
+  top: 330px;
+  left: 24px; right: 24px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.budget-row {
+  display: flex; align-items: center; gap: 12px;
+}
+.budget-icon {
+  width: 38px; height: 38px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.budget-icon svg { width: 19px; height: 19px; }
+.budget-icon--food { background: #FFF3E0; color: #E65100; }
+.budget-icon--transport { background: #E3F2FD; color: #1565C0; }
+.budget-icon--shopping { background: #FCE4EC; color: #AD1457; }
+.budget-meta { flex: 1; min-width: 0; }
+.budget-header {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 5px;
+}
+.budget-name { font-size: 14px; font-weight: 600; color: var(--md-on-surface); }
+.budget-badge {
+  font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 8px;
+}
+.budget-badge--ok { background: var(--md-primary-container); color: var(--md-on-primary-container); }
+.budget-badge--danger { background: #FFDAD6; color: var(--md-error); }
+.budget-track {
+  width: 100%; height: 6px; border-radius: 3px;
+  background: var(--md-surface-container-highest); overflow: hidden;
+}
+.budget-fill { height: 100%; border-radius: 3px; }
+.budget-fill--food { width: 65%; background: linear-gradient(90deg, #FF9800, #FFB74D); }
+.budget-fill--transport { width: 40%; background: linear-gradient(90deg, #1976D2, #64B5F6); }
+.budget-fill--shopping { width: 85%; background: linear-gradient(90deg, #C2185B, #F06292); }
+
+/* Screen 2 text */
+.s2-text {
+  position: absolute;
+  bottom: 120px;
+  left: 28px; right: 28px;
+  z-index: 20;
+}
+.s2-headline { line-height: 1.12; margin-bottom: 12px; }
+.s2-headline__main {
+  display: block; font-size: 32px; font-weight: 800;
+  color: var(--md-on-surface); letter-spacing: -0.03em;
+}
+.s2-headline__accent {
+  display: block; font-size: 32px; font-weight: 800;
+  color: var(--md-tertiary); letter-spacing: -0.03em;
+}
+.s2-sub {
+  font-size: 15px; font-weight: 400; line-height: 1.55;
+  color: var(--md-on-surface-variant); max-width: 300px;
+}
+</style>
+
+<body>
+
+<!-- =====================================================================
+     SCREEN 1 — WELCOME
+     ===================================================================== -->
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar" style="color: #FFFFFF;">
+    <span class="status-bar__time">9:41</span>
+    <div class="status-bar__icons">
+      <svg><use href="#ico-signal"/></svg>
+      <svg><use href="#ico-wifi"/></svg>
+      <svg class="battery"><use href="#ico-battery"/></svg>
+    </div>
+  </div>
+
+  <!-- Green gradient header -->
+  <div class="s1-bg">
+    <svg class="s1-bg-wave" viewBox="0 0 393 60" preserveAspectRatio="none">
+      <path d="M0 20 C100 55, 250 0, 393 35 L393 60 L0 60 Z" fill="#FBFDF8"/>
+    </svg>
+  </div>
+
+  <!-- Piggy bank illustration centered in header -->
+  <div class="s1-illustration">
+    <svg width="180" height="160" viewBox="0 0 185 165" fill="none">
+      <ellipse cx="88" cy="148" rx="50" ry="8" fill="#191C19" opacity="0.06"/>
+      <ellipse cx="88" cy="96" rx="62" ry="50" fill="#D1E8D5"/>
+      <ellipse cx="88" cy="96" rx="62" ry="50" fill="url(#pg1)" opacity="0.5"/>
+      <ellipse cx="80" cy="88" rx="35" ry="26" fill="white" opacity="0.18"/>
+      <ellipse cx="42" cy="74" rx="26" ry="22" fill="#D1E8D5"/>
+      <ellipse cx="42" cy="74" rx="26" ry="22" fill="url(#pg2)" opacity="0.35"/>
+      <ellipse cx="32" cy="55" rx="11" ry="15" fill="#4F6354" opacity="0.22" transform="rotate(-12 32 55)"/>
+      <circle cx="34" cy="70" r="4.5" fill="#191C19" opacity="0.65"/>
+      <circle cx="32.5" cy="68.8" r="1.8" fill="white" opacity="0.9"/>
+      <ellipse cx="25" cy="78" rx="6" ry="3.5" fill="#F06292" opacity="0.12"/>
+      <ellipse cx="20" cy="80" rx="11" ry="9" fill="#9AF6B2" opacity="0.6"/>
+      <circle cx="17" cy="79.5" r="2" fill="#4F6354" opacity="0.35"/>
+      <circle cx="23" cy="79.5" r="2" fill="#4F6354" opacity="0.35"/>
+      <rect x="72" y="44" width="30" height="5" rx="2.5" fill="#4F6354" opacity="0.3"/>
+      <rect x="50" y="138" width="14" height="19" rx="7" fill="#D1E8D5"/>
+      <rect x="100" y="138" width="14" height="19" rx="7" fill="#D1E8D5"/>
+      <rect x="50" y="152" width="14" height="5" rx="3" fill="#4F6354" opacity="0.15"/>
+      <rect x="100" y="152" width="14" height="5" rx="3" fill="#4F6354" opacity="0.15"/>
+      <path d="M148 86c7-3 12 3 10 9s-5 8-1 14" stroke="#4F6354" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.35"/>
+      <!-- Floating coins -->
+      <g>
+        <circle cx="95" cy="26" r="15" fill="#006D3B" opacity="0.1"/>
+        <circle cx="95" cy="26" r="12" fill="none" stroke="#006D3B" stroke-width="1.5" opacity="0.3"/>
+        <text x="95" y="31" text-anchor="middle" font-size="13" font-weight="800" fill="#006D3B" opacity="0.4" font-family="Inter,sans-serif">₫</text>
+      </g>
+      <g opacity="0.7">
+        <circle cx="135" cy="48" r="11" fill="#006D3B" opacity="0.08"/>
+        <circle cx="135" cy="48" r="8" fill="none" stroke="#006D3B" stroke-width="1.2" opacity="0.25"/>
+        <text x="135" y="52" text-anchor="middle" font-size="9" font-weight="700" fill="#006D3B" opacity="0.3" font-family="Inter,sans-serif">₫</text>
+      </g>
+      <defs>
+        <linearGradient id="pg1" x1="26" y1="50" x2="150" y2="140">
+          <stop offset="0%" stop-color="#9AF6B2"/>
+          <stop offset="100%" stop-color="#D1E8D5"/>
+        </linearGradient>
+        <radialGradient id="pg2" cx="40%" cy="30%">
+          <stop offset="0%" stop-color="white" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="transparent" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Preview cards — clean vertical stack, no overlap -->
+  <div class="s1-cards">
+    <!-- Expense -->
+    <div class="preview-card">
+      <div class="preview-card__icon preview-card__icon--expense">
+        <svg><use href="#ico-food"/></svg>
+      </div>
+      <div class="preview-card__info">
+        <div class="preview-card__label">Chi tiêu hôm nay</div>
+        <div class="preview-card__value preview-card__value--expense">-320.000₫</div>
+      </div>
+      <div class="preview-card__right">Ăn uống<br>12:30</div>
+    </div>
+    <!-- Wallet -->
+    <div class="preview-card">
+      <div class="preview-card__icon preview-card__icon--wallet">
+        <svg><use href="#ico-wallet"/></svg>
+      </div>
+      <div class="preview-card__info">
+        <div class="preview-card__label">Số dư ví</div>
+        <div class="preview-card__value">8.540.000₫</div>
+      </div>
+      <div class="preview-card__right">Cập nhật<br>vừa xong</div>
+    </div>
+    <!-- Savings -->
+    <div class="preview-card">
+      <div class="preview-card__icon preview-card__icon--savings">
+        <svg><use href="#ico-target"/></svg>
+      </div>
+      <div class="preview-card__info">
+        <div class="preview-card__label">Mục tiêu tiết kiệm</div>
+        <div class="preview-card__value preview-card__value--primary">MacBook Pro</div>
+      </div>
+      <div class="preview-card__right">
+        <div class="mini-progress__pct">72%</div>
+        <div class="mini-progress"><div class="mini-progress__fill"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text -->
+  <div class="s1-text">
+    <div class="s1-headline">
+      <span class="s1-headline__sm">Quản lý</span>
+      <span class="s1-headline__lg">chi tiêu</span>
+      <span class="s1-headline__sm">thông minh</span>
+    </div>
+    <p class="s1-sub">Theo dõi chi tiêu, lập ngân sách và đạt mục tiêu tài chính dễ dàng hơn bao giờ hết.</p>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="dot-indicator">
+      <div class="dot dot--active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <span class="skip-text">Bỏ qua</span>
+    <div class="fab">
+      <svg><use href="#ico-arrow-right"/></svg>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+
+
+<!-- =====================================================================
+     SCREEN 2 — SMART BUDGETING
+     ===================================================================== -->
+<div class="phone-frame">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar" style="color: var(--md-on-surface);">
+    <span class="status-bar__time">9:41</span>
+    <div class="status-bar__icons">
+      <svg><use href="#ico-signal"/></svg>
+      <svg><use href="#ico-wifi"/></svg>
+      <svg class="battery"><use href="#ico-battery"/></svg>
+    </div>
+  </div>
+
+  <!-- Wave header background -->
+  <div class="s2-header">
+    <div class="s2-header-fill"></div>
+    <svg class="s2-header-wave" viewBox="0 0 393 50" preserveAspectRatio="none">
+      <path d="M0 0 C60 5, 130 45, 210 25 S340 48, 393 20 L393 0 Z" fill="#CDEEF9"/>
+    </svg>
+  </div>
+
+  <!-- Semi-circular gauge -->
+  <div class="s2-gauge-wrap">
+    <svg viewBox="0 0 200 115">
+      <defs>
+        <linearGradient id="gaugeFill" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3A6470"/>
+          <stop offset="45%" stop-color="#006D3B"/>
+          <stop offset="100%" stop-color="#9AF6B2"/>
+        </linearGradient>
+      </defs>
+      <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E4E9E0" stroke-width="12" stroke-linecap="round"/>
+      <path d="M 20 100 A 80 80 0 0 1 160 35" fill="none" stroke="url(#gaugeFill)" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="20" cy="100" r="3" fill="#3A6470" opacity="0.3"/>
+      <circle cx="180" cy="100" r="3" fill="#E4E9E0"/>
+      <circle cx="160" cy="35" r="7" fill="white" stroke="#006D3B" stroke-width="2.5"/>
+      <circle cx="160" cy="35" r="2.5" fill="#006D3B"/>
+    </svg>
+    <span class="s2-gauge__label">Đã chi tiêu</span>
+    <span class="s2-gauge__value">5.2M / 8M</span>
+  </div>
+
+  <!-- Notification card -->
+  <div class="s2-notif">
+    <div class="s2-notif__head">
+      <div class="s2-notif__icon">
+        <svg><use href="#ico-bell"/></svg>
+      </div>
+      <span class="s2-notif__badge">Thông báo</span>
+    </div>
+    <div class="s2-notif__body">Bạn đã tiết kiệm 1.2M tuần này!</div>
+    <div class="s2-notif__trend">
+      <svg><use href="#ico-trend-up"/></svg>
+      +18% so với tuần trước
+    </div>
+  </div>
+
+  <!-- Budget category bars -->
+  <div class="s2-budgets">
+    <div class="budget-row">
+      <div class="budget-icon budget-icon--food"><svg><use href="#ico-food"/></svg></div>
+      <div class="budget-meta">
+        <div class="budget-header">
+          <span class="budget-name">Ăn uống</span>
+          <span class="budget-badge budget-badge--ok">65%</span>
+        </div>
+        <div class="budget-track"><div class="budget-fill budget-fill--food"></div></div>
+      </div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-icon budget-icon--transport"><svg><use href="#ico-transport"/></svg></div>
+      <div class="budget-meta">
+        <div class="budget-header">
+          <span class="budget-name">Di chuyển</span>
+          <span class="budget-badge budget-badge--ok">40%</span>
+        </div>
+        <div class="budget-track"><div class="budget-fill budget-fill--transport"></div></div>
+      </div>
+    </div>
+    <div class="budget-row">
+      <div class="budget-icon budget-icon--shopping"><svg><use href="#ico-shopping"/></svg></div>
+      <div class="budget-meta">
+        <div class="budget-header">
+          <span class="budget-name">Mua sắm</span>
+          <span class="budget-badge budget-badge--danger">85%</span>
+        </div>
+        <div class="budget-track"><div class="budget-fill budget-fill--shopping"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Text -->
+  <div class="s2-text">
+    <div class="s2-headline">
+      <span class="s2-headline__main">Ngân sách</span>
+      <span class="s2-headline__accent">thông minh</span>
+    </div>
+    <p class="s2-sub">Tự động phân loại chi tiêu và cảnh báo khi bạn sắp vượt ngân sách.</p>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="dot-indicator">
+      <div class="dot"></div>
+      <div class="dot dot--active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+    <span class="skip-text">Bỏ qua</span>
+    <div class="fab">
+      <svg><use href="#ico-arrow-right"/></svg>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</body>
+</html>

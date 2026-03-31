@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quản Lý Chi Tiêu — Onboarding Screens 3 & 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=block" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #E0E2DD;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 48px 24px;
+  gap: 56px;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root {
+  --primary: #006D3B;
+  --on-primary: #FFFFFF;
+  --primary-container: #9AF6B2;
+  --on-primary-container: #00210E;
+  --secondary: #4F6354;
+  --secondary-container: #D1E8D5;
+  --tertiary: #3A6470;
+  --tertiary-container: #BDE9F7;
+  --surface: #FBFDF8;
+  --on-surface: #191C19;
+  --on-surface-variant: #414941;
+  --outline-variant: #C1C9BE;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-highest: #E3E5E1;
+  --error: #BA1A1A;
+}
+
+/* ===== PHONE FRAME ===== */
+.phone-frame {
+  width: 393px;
+  height: 852px;
+  border-radius: 40px;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.05),
+    0 8px 20px rgba(0,0,0,0.08),
+    0 24px 48px rgba(0,0,0,0.1);
+}
+
+/* ===== DYNAMIC ISLAND ===== */
+.dynamic-island {
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 126px; height: 36px;
+  background: #000; border-radius: 20px;
+  z-index: 200;
+}
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 54px;
+  padding: 14px 28px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+}
+.status-bar__time {
+  font-size: 15px; font-weight: 600; letter-spacing: 0.02em;
+}
+.status-bar__icons {
+  display: flex; align-items: center; gap: 5px;
+}
+.status-bar__icons svg { width: 16px; height: 11px; }
+.status-bar__icons .battery { width: 25px; height: 11px; }
+
+/* ===== HOME INDICATOR ===== */
+.home-indicator {
+  position: absolute;
+  bottom: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 134px; height: 5px;
+  border-radius: 3px;
+  z-index: 100;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 24px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+.dot-indicator { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 8px; height: 8px; border-radius: 4px;
+  background: var(--outline-variant);
+}
+.dot--active { width: 24px; background: var(--primary); }
+.skip-text {
+  font-size: 14px; font-weight: 500;
+  color: var(--on-surface-variant);
+}
+.fab {
+  width: 56px; height: 56px; border-radius: 16px;
+  background: var(--primary); color: var(--on-primary);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(0,109,59,0.18), 0 8px 20px rgba(0,109,59,0.22);
+}
+.fab svg { width: 24px; height: 24px; }
+
+/* ===================================================================
+   SCREEN 3 — SMART INSIGHTS
+   =================================================================== */
+.screen-3 { background: var(--surface); }
+
+/* Green header wave */
+.s3-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 280px;
+  z-index: 1;
+  overflow: hidden;
+}
+.s3-header svg {
+  width: 100%; height: 100%;
+}
+
+/* Chart card */
+.s3-chart-card {
+  position: absolute;
+  top: 68px;
+  left: 20px; right: 20px;
+  z-index: 5;
+  background: var(--surface-container-lowest);
+  border-radius: 20px;
+  padding: 20px 18px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.06);
+}
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.chart-header h4 {
+  font-size: 15px; font-weight: 700; color: var(--on-surface);
+}
+.chart-chip {
+  font-size: 11px; font-weight: 600; color: var(--primary);
+  background: rgba(0,109,59,0.08);
+  padding: 5px 12px; border-radius: 999px;
+}
+.chart-area { position: relative; height: 130px; }
+.chart-area svg { width: 100%; height: 100%; }
+.chart-days {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 4px 0;
+}
+.chart-days span {
+  font-size: 10px; font-weight: 500; color: var(--on-surface-variant);
+  width: 24px; text-align: center;
+}
+.chart-days .active-day { color: var(--primary); font-weight: 700; }
+
+/* Metric cards row */
+.s3-metrics {
+  position: absolute;
+  top: 325px;
+  left: 20px; right: 20px;
+  z-index: 5;
+  display: flex;
+  gap: 10px;
+}
+.metric-card {
+  flex: 1;
+  background: var(--surface-container-lowest);
+  border-radius: 16px;
+  padding: 14px 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  border-left: 3px solid transparent;
+}
+.metric-card--income { border-left-color: var(--primary); }
+.metric-card--expense { border-left-color: var(--tertiary); }
+.metric-card--savings { border-left-color: var(--primary-container); }
+
+.metric-label {
+  font-size: 10px; font-weight: 500; color: var(--on-surface-variant);
+  margin-bottom: 4px; letter-spacing: 0.3px;
+}
+.metric-value {
+  font-size: 16px; font-weight: 800; color: var(--on-surface);
+  letter-spacing: -0.5px; margin-bottom: 3px;
+}
+.metric-change {
+  font-size: 10px; font-weight: 600;
+  display: flex; align-items: center; gap: 2px;
+}
+.metric-change--up { color: var(--primary); }
+.metric-change--down { color: var(--tertiary); }
+
+/* Insight bubble */
+.s3-insight {
+  position: absolute;
+  top: 440px;
+  left: 24px; right: 24px;
+  z-index: 5;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.insight-icon {
+  width: 30px; height: 30px; border-radius: 9px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.insight-text {
+  font-size: 13px; font-weight: 500; color: var(--on-surface);
+  line-height: 1.4;
+}
+.insight-text strong { color: var(--primary); font-weight: 700; }
+
+/* Screen 3 text */
+.s3-text {
+  position: absolute;
+  bottom: 120px;
+  left: 28px; right: 28px;
+  z-index: 10;
+}
+.s3-text h1 {
+  font-size: 32px; font-weight: 800; color: var(--on-surface);
+  line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.5px;
+}
+.s3-text h1 span { color: var(--primary); }
+.s3-text p {
+  font-size: 15px; line-height: 1.55; color: var(--on-surface-variant);
+  max-width: 290px;
+}
+
+/* ===================================================================
+   SCREEN 4 — GET STARTED
+   =================================================================== */
+.screen-4 {
+  background: linear-gradient(160deg, #007D44 0%, var(--primary) 30%, #005A30 70%, #004825 100%);
+  overflow: hidden;
+}
+
+/* Subtle grid pattern */
+.s4-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Gradient orb */
+.s4-orb {
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.06) 0%, transparent 70%);
+  z-index: 1;
+}
+
+/* Glass card with rocket */
+.s4-hero {
+  position: absolute;
+  top: 80px; left: 50%;
+  transform: translateX(-50%);
+  width: 140px; height: 140px;
+  z-index: 5;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 32px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+/* Feature checklist */
+.s4-features {
+  position: absolute;
+  top: 260px;
+  left: 36px; right: 36px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.feature-item {
+  display: flex; align-items: center; gap: 12px;
+}
+.feature-check {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: rgba(154,246,178,0.18);
+  border: 1.5px solid rgba(154,246,178,0.35);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feature-label {
+  font-size: 15px; font-weight: 500;
+  color: rgba(255,255,255,0.9);
+}
+
+/* Screen 4 text */
+.s4-text {
+  position: absolute;
+  bottom: 200px;
+  left: 32px; right: 32px;
+  z-index: 5;
+}
+.s4-text h1 {
+  font-size: 32px; font-weight: 800; color: white;
+  line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.5px;
+}
+.s4-text p {
+  font-size: 15px; line-height: 1.55;
+  color: rgba(255,255,255,0.65); max-width: 280px;
+}
+
+/* CTA section */
+.s4-cta {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 28px 44px;
+  z-index: 10;
+}
+.btn-primary {
+  font-family: inherit;
+  width: 100%; height: 54px;
+  border-radius: 999px;
+  background: white; border: none;
+  font-size: 16px; font-weight: 700;
+  color: var(--primary);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.08);
+}
+.btn-secondary {
+  font-family: inherit;
+  width: 100%; text-align: center;
+  font-size: 14px; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  background: none; border: none; padding: 10px;
+}
+.btn-secondary strong {
+  font-weight: 600; color: rgba(255,255,255,0.85);
+}
+</style>
+</head>
+<body>
+
+<!-- SVG Sprite -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="ico-signal" viewBox="0 0 17 11">
+    <rect x="0" y="8" width="3" height="3" rx="0.75" fill="currentColor"/>
+    <rect x="4.5" y="5.5" width="3" height="5.5" rx="0.75" fill="currentColor"/>
+    <rect x="9" y="2.75" width="3" height="8.25" rx="0.75" fill="currentColor"/>
+    <rect x="13.5" y="0" width="3" height="11" rx="0.75" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-wifi" viewBox="0 0 16 12">
+    <path d="M8 10a1.25 1.25 0 110 2.5A1.25 1.25 0 018 10z" fill="currentColor"/>
+    <path d="M4.93 7.93a4.36 4.36 0 016.14 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+    <path d="M2.1 5.1a8 8 0 0111.8 0" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  </symbol>
+  <symbol id="ico-battery" viewBox="0 0 27 12">
+    <rect x="0.5" y="0.5" width="22" height="11" rx="2.5" stroke="currentColor" stroke-opacity="0.35" fill="none" stroke-width="1"/>
+    <rect x="23.5" y="3.5" width="2" height="4.5" rx="0.8" fill="currentColor" opacity="0.35"/>
+    <rect x="2" y="2" width="18.5" height="8" rx="1.5" fill="currentColor"/>
+  </symbol>
+  <symbol id="ico-arrow-right" viewBox="0 0 24 24">
+    <path d="M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </symbol>
+  <symbol id="ic-sparkle" viewBox="0 0 24 24">
+    <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z" fill="currentColor"/>
+  </symbol>
+  <symbol id="ic-check" viewBox="0 0 16 16">
+    <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </symbol>
+  <symbol id="ic-rocket" viewBox="0 0 100 100">
+    <!-- Exhaust flames -->
+    <path d="M42 80 C42 90, 46 98, 50 100 C54 98, 58 90, 58 80" fill="rgba(255,200,50,0.5)"/>
+    <path d="M45 80 C45 88, 47 94, 50 97 C53 94, 55 88, 55 80" fill="rgba(255,130,30,0.6)"/>
+    <path d="M47 80 C47 86, 48.5 91, 50 93 C51.5 91, 53 86, 53 80" fill="rgba(255,220,100,0.7)"/>
+    <!-- Motion lines -->
+    <line x1="30" y1="58" x2="22" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="28" y1="48" x2="18" y2="54" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="70" y1="58" x2="78" y2="66" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="72" y1="48" x2="82" y2="54" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Body -->
+    <path d="M50 8 C50 8, 36 24, 36 50 L36 74 C36 77, 39 80, 42 80 L58 80 C61 80, 64 77, 64 74 L64 50 C64 24, 50 8, 50 8Z" fill="white" opacity="0.95"/>
+    <!-- Body highlight -->
+    <path d="M50 10 C50 10, 42 22, 40 42 L40 72 C40 74, 41 75, 43 75 L46 75 L46 42 C46 24, 50 10, 50 10Z" fill="rgba(255,255,255,0.4)"/>
+    <!-- Window -->
+    <circle cx="50" cy="40" r="8" fill="rgba(0,109,59,0.12)" stroke="rgba(0,109,59,0.2)" stroke-width="1.8"/>
+    <circle cx="50" cy="40" r="5" fill="rgba(154,246,178,0.3)"/>
+    <circle cx="48" cy="38" r="1.5" fill="rgba(255,255,255,0.5)"/>
+    <!-- Fins -->
+    <path d="M36 62 L26 76 C25 78, 26 80, 28 80 L36 76Z" fill="rgba(255,255,255,0.7)"/>
+    <path d="M64 62 L74 76 C75 78, 74 80, 72 80 L64 76Z" fill="rgba(255,255,255,0.7)"/>
+    <!-- Stripes -->
+    <rect x="40" y="58" width="20" height="1.5" rx="0.75" fill="rgba(0,109,59,0.1)"/>
+    <rect x="40" y="63" width="20" height="1.5" rx="0.75" fill="rgba(0,109,59,0.1)"/>
+    <!-- Stars -->
+    <circle cx="24" cy="24" r="1.2" fill="rgba(255,255,255,0.5)"/>
+    <circle cx="76" cy="20" r="0.8" fill="rgba(255,255,255,0.4)"/>
+    <circle cx="18" cy="40" r="0.8" fill="rgba(255,255,255,0.3)"/>
+    <circle cx="80" cy="36" r="1.2" fill="rgba(255,255,255,0.35)"/>
+  </symbol>
+</svg>
+
+
+<!-- =====================================================================
+     SCREEN 3 — SMART INSIGHTS
+     ===================================================================== -->
+<div class="phone-frame screen-3">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar" style="color: #FFFFFF;">
+    <span class="status-bar__time">9:41</span>
+    <div class="status-bar__icons">
+      <svg><use href="#ico-signal"/></svg>
+      <svg><use href="#ico-wifi"/></svg>
+      <svg class="battery"><use href="#ico-battery"/></svg>
+    </div>
+  </div>
+
+  <!-- Green wave header -->
+  <div class="s3-header">
+    <svg viewBox="0 0 393 280" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="hGrad" x1="0" y1="0" x2="0.6" y2="1">
+          <stop offset="0%" stop-color="#007D44"/>
+          <stop offset="50%" stop-color="#006D3B"/>
+          <stop offset="100%" stop-color="#004825"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,0 L393,0 L393,230 C350,250 280,265 196,260 C110,255 50,240 0,230 Z" fill="url(#hGrad)"/>
+      <circle cx="300" cy="60" r="140" fill="rgba(255,255,255,0.03)"/>
+    </svg>
+  </div>
+
+  <!-- Chart card -->
+  <div class="s3-chart-card">
+    <div class="chart-header">
+      <h4>Tổng quan chi tiêu</h4>
+      <span class="chart-chip">Tuần này</span>
+    </div>
+    <div class="chart-area">
+      <svg viewBox="0 0 300 120" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="aGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#006D3B" stop-opacity="0.16"/>
+            <stop offset="100%" stop-color="#006D3B" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="lGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#006D3B" stop-opacity="0.5"/>
+            <stop offset="50%" stop-color="#006D3B" stop-opacity="1"/>
+            <stop offset="100%" stop-color="#006D3B" stop-opacity="0.7"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        <line x1="0" y1="30" x2="300" y2="30" stroke="#C1C9BE" stroke-width="0.5" stroke-dasharray="3,4" opacity="0.4"/>
+        <line x1="0" y1="60" x2="300" y2="60" stroke="#C1C9BE" stroke-width="0.5" stroke-dasharray="3,4" opacity="0.4"/>
+        <line x1="0" y1="90" x2="300" y2="90" stroke="#C1C9BE" stroke-width="0.5" stroke-dasharray="3,4" opacity="0.4"/>
+        <!-- Area fill -->
+        <path d="M0,52 Q25,64 50,74 Q75,55 100,36 Q125,60 150,84 Q175,72 200,58 Q225,76 250,94 Q275,82 300,68 L300,120 L0,120 Z" fill="url(#aGrad)"/>
+        <!-- Line -->
+        <path d="M0,52 Q25,64 50,74 Q75,55 100,36 Q125,60 150,84 Q175,72 200,58 Q225,76 250,94 Q275,82 300,68" fill="none" stroke="url(#lGrad)" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Data points -->
+        <circle cx="0" cy="52" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <circle cx="50" cy="74" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <circle cx="100" cy="36" r="4" fill="#006D3B" stroke="white" stroke-width="2"/>
+        <circle cx="150" cy="84" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <circle cx="200" cy="58" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <circle cx="250" cy="94" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <circle cx="300" cy="68" r="3" fill="white" stroke="#006D3B" stroke-width="1.5"/>
+        <!-- Tooltip -->
+        <rect x="78" y="12" width="44" height="20" rx="6" fill="#006D3B"/>
+        <polygon points="100,32 95,27 105,27" fill="#006D3B"/>
+        <text x="100" y="26" text-anchor="middle" font-size="10" font-weight="600" fill="white" font-family="Inter,sans-serif">2.8M</text>
+      </svg>
+    </div>
+    <div class="chart-days">
+      <span>T2</span>
+      <span>T3</span>
+      <span class="active-day">T4</span>
+      <span>T5</span>
+      <span>T6</span>
+      <span>T7</span>
+      <span>CN</span>
+    </div>
+  </div>
+
+  <!-- Metric cards -->
+  <div class="s3-metrics">
+    <div class="metric-card metric-card--income">
+      <div class="metric-label">Thu nhập</div>
+      <div class="metric-value">15.2M</div>
+      <div class="metric-change metric-change--up">
+        <svg width="8" height="8" viewBox="0 0 10 10"><path d="M5 2L8 6H2L5 2Z" fill="currentColor"/></svg>
+        12%
+      </div>
+    </div>
+    <div class="metric-card metric-card--expense">
+      <div class="metric-label">Chi tiêu</div>
+      <div class="metric-value">8.7M</div>
+      <div class="metric-change metric-change--down">
+        <svg width="8" height="8" viewBox="0 0 10 10"><path d="M5 8L2 4H8L5 8Z" fill="currentColor"/></svg>
+        5%
+      </div>
+    </div>
+    <div class="metric-card metric-card--savings">
+      <div class="metric-label">Tiết kiệm</div>
+      <div class="metric-value">6.5M</div>
+      <div class="metric-change metric-change--up">
+        <svg width="8" height="8" viewBox="0 0 10 10"><path d="M5 2L8 6H2L5 2Z" fill="currentColor"/></svg>
+        28%
+      </div>
+    </div>
+  </div>
+
+  <!-- Insight bubble -->
+  <div class="s3-insight">
+    <div class="insight-icon">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><use href="#ic-sparkle"/></svg>
+    </div>
+    <div class="insight-text">
+      Chi tiêu ăn uống <strong>giảm 15%</strong> so với tuần trước
+    </div>
+  </div>
+
+  <!-- Text content -->
+  <div class="s3-text">
+    <h1>Phân tích<br><span>chi tiết</span></h1>
+    <p>Biểu đồ thông minh giúp bạn nắm bắt mọi xu hướng tài chính cá nhân.</p>
+  </div>
+
+  <!-- Bottom Nav -->
+  <div class="bottom-nav">
+    <div class="dot-indicator">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot dot--active"></div>
+      <div class="dot"></div>
+    </div>
+    <span class="skip-text">Bỏ qua</span>
+    <div class="fab">
+      <svg><use href="#ico-arrow-right"/></svg>
+    </div>
+  </div>
+  <div class="home-indicator" style="background: var(--on-surface); opacity: 0.18;"></div>
+</div>
+
+
+<!-- =====================================================================
+     SCREEN 4 — GET STARTED
+     ===================================================================== -->
+<div class="phone-frame screen-4">
+  <div class="dynamic-island"></div>
+
+  <div class="s4-grid"></div>
+  <div class="s4-orb"></div>
+
+  <div class="status-bar" style="color: #FFFFFF;">
+    <span class="status-bar__time">9:41</span>
+    <div class="status-bar__icons">
+      <svg><use href="#ico-signal"/></svg>
+      <svg><use href="#ico-wifi"/></svg>
+      <svg class="battery"><use href="#ico-battery"/></svg>
+    </div>
+  </div>
+
+  <!-- Glass hero with rocket -->
+  <div class="s4-hero">
+    <svg width="100" height="100" viewBox="0 0 100 100"><use href="#ic-rocket"/></svg>
+  </div>
+
+  <!-- Feature checklist -->
+  <div class="s4-features">
+    <div class="feature-item">
+      <div class="feature-check">
+        <svg width="12" height="12" viewBox="0 0 16 16" stroke="#9AF6B2"><use href="#ic-check"/></svg>
+      </div>
+      <span class="feature-label">Ghi chép nhanh chóng</span>
+    </div>
+    <div class="feature-item">
+      <div class="feature-check">
+        <svg width="12" height="12" viewBox="0 0 16 16" stroke="#9AF6B2"><use href="#ic-check"/></svg>
+      </div>
+      <span class="feature-label">Báo cáo tự động</span>
+    </div>
+    <div class="feature-item">
+      <div class="feature-check">
+        <svg width="12" height="12" viewBox="0 0 16 16" stroke="#9AF6B2"><use href="#ic-check"/></svg>
+      </div>
+      <span class="feature-label">Nhắc nhở thanh toán</span>
+    </div>
+    <div class="feature-item">
+      <div class="feature-check">
+        <svg width="12" height="12" viewBox="0 0 16 16" stroke="#9AF6B2"><use href="#ic-check"/></svg>
+      </div>
+      <span class="feature-label">Đồng bộ đa nền tảng</span>
+    </div>
+  </div>
+
+  <!-- Text -->
+  <div class="s4-text">
+    <h1>Sẵn sàng<br>kiểm soát<br>tài chính?</h1>
+    <p>Bắt đầu hành trình quản lý chi tiêu thông minh ngay hôm nay.</p>
+  </div>
+
+  <!-- CTA -->
+  <div class="s4-cta">
+    <button class="btn-primary">Bắt đầu ngay &rarr;</button>
+    <button class="btn-secondary">Đã có tài khoản? <strong>Đăng nhập</strong></button>
+  </div>
+  <div class="home-indicator" style="background: white; opacity: 0.25;"></div>
+</div>
+
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</body>
+</html>
