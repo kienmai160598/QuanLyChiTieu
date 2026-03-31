@@ -465,7 +465,9 @@ private extension SavingsGoalDetailView {
                 SavingsHistoryChart(
                     transactions: transactions,
                     goalColorHex: goal.colorHex,
-                    initialBalance: 0
+                    initialBalance: 0,
+                    showHeader: false,
+                    showCard: false
                 )
 
                 SavingsHistoryList(
