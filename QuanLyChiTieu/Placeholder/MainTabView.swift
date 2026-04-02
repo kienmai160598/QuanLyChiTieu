@@ -4,8 +4,7 @@ import SwiftData
 // MARK: - Tab Enum
 
 internal enum AppTab: Int, Sendable, Equatable {
-    case dashboard
-    case add
+    case expense
     case savings
 }
 
@@ -13,21 +12,16 @@ internal enum AppTab: Int, Sendable, Equatable {
 
 internal struct MainTabView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var selectedTab = AppTab.dashboard
-    @State private var showAddTransaction = false
+    @State private var selectedTab = AppTab.expense
     @Namespace private var transactionZoom
 
     internal var body: some View {
         TabView(selection: $selectedTab) {
-            Tab(String(localized: "Tổng quan"), systemImage: "chart.pie", value: .dashboard) {
+            Tab(String(localized: "Chi tiêu"), systemImage: "plus.circle", value: .expense) {
                 NavigationStack {
-                    DashboardView(showAddTransaction: $showAddTransaction, zoomNamespace: transactionZoom)
+                    AddTransactionView()
                         .navigationDestinations(zoomNamespace: transactionZoom)
                 }
-            }
-
-            Tab(String(localized: "Thêm"), systemImage: "plus", value: .add, role: .search) {
-                Color.clear
             }
 
             Tab(String(localized: "Tiết kiệm"), systemImage: "target", value: .savings) {
@@ -36,21 +30,6 @@ internal struct MainTabView: View {
                         .navigationDestinations()
                 }
             }
-
-        }
-        .onChange(of: selectedTab) { oldValue, newValue in
-            if newValue == .add {
-                selectedTab = oldValue
-                HapticService.mediumImpact()
-                showAddTransaction = true
-            }
-        }
-        .sheet(isPresented: $showAddTransaction) {
-            AddTransactionView()
-                .presentationDetents([.large])
-                .presentationDragIndicator(.visible)
-                .presentationCornerRadius(Spacing.cornerExtraExtraLarge)
-                .presentationBackground(Color.surfaceContainerLowest)
         }
     }
 }
